@@ -11,8 +11,7 @@ import com.example.android.bakingapp.model.RecipeItem;
 import com.example.android.bakingapp.model.Steps;
 import com.example.android.bakingapp.ui.RecipeStepsFragment;
 
-public class RecipeStepsActivity extends AppCompatActivity implements
-        recipeStepsAdapter.RecipeStepsAdapterListener {
+public class RecipeStepsActivity extends AppCompatActivity {
 
     private RecipeItem mParcelledRecipeItem;
     private static String PARCELLED_RECIPE = "parcelled_recipe";
@@ -36,13 +35,5 @@ public class RecipeStepsActivity extends AppCompatActivity implements
                 .add(R.id.steps_list_container, stepsFragment)
                 .commit();
 
-    }
-
-    @Override
-    public void onClickMethod(Steps step, int position) {
-        Intent intent = new Intent(RecipeStepsActivity.this, RecipeDetailedPhone.class);
-        String detailedDescription = step.getDescription();
-        startActivity(intent);
-        Toast.makeText(this, detailedDescription,Toast.LENGTH_SHORT);
     }
 }

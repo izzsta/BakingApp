@@ -1,17 +1,21 @@
 package com.example.android.bakingapp.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.android.bakingapp.R;
+import com.example.android.bakingapp.RecipeDetailedPhone;
 import com.example.android.bakingapp.RecipeStepsActivity;
 import com.example.android.bakingapp.adapters.recipeStepsAdapter;
 import com.example.android.bakingapp.model.Ingredients;
@@ -27,7 +31,8 @@ import butterknife.BindView;
  * Created by izzystannett on 11/04/2018.
  */
 
-public class RecipeStepsFragment extends Fragment {
+public class RecipeStepsFragment extends Fragment implements
+        recipeStepsAdapter.RecipeStepsAdapterListener{
 
     //TODO: add a list of recipe Items, and a setter method for getting them, and a setter method for setting the index
 
@@ -39,6 +44,7 @@ public class RecipeStepsFragment extends Fragment {
     private RecyclerView.LayoutManager mLayoutManager;
     private recipeStepsAdapter mAdapter;
     private static String PARCELLED_RECIPE = "parcelled_recipe";
+    private static String LOG_TAG = "Recipe Steps Fragment";
 
 
     //empty constructor for creating the Fragment
@@ -95,5 +101,14 @@ public class RecipeStepsFragment extends Fragment {
 
     public void setmRecipeItem(RecipeItem recipeItem){
         mRecipeItem = recipeItem;
+    }
+
+    @Override
+    public void onClickMethod(Steps step, int position) {
+        Intent intent = new Intent(getActivity(), RecipeDetailedPhone.class);
+        String detailedDescription = step.getDescription();
+        startActivity(intent);
+        Toast.makeText(getActivity(), detailedDescription,Toast.LENGTH_SHORT).show();
+        Log.e(LOG_TAG, detailedDescription);
     }
 }
