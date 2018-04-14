@@ -3,6 +3,7 @@ package com.example.android.bakingapp;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity implements recipeItemAdapter
     private recipeItemAdapter mAdapter;
     private ArrayList<RecipeItem> mRecipeData;
     private static final String PARCELLED_RECIPE_ITEM = "parcelled_recipe_item";
+    private boolean mIsTwoPane = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +38,16 @@ public class MainActivity extends AppCompatActivity implements recipeItemAdapter
         ButterKnife.bind(this);
 
         mRecyclerView.setHasFixedSize(true);
-        //for phones, use linear layout manager
-        mLayoutManager = new LinearLayoutManager(this);
+        if(findViewById(R.id.tablet_main_screen) != null){
+            mIsTwoPane = true;
+            //for tablets, use grid layout manager
+            mLayoutManager = new GridLayoutManager(this, 3);
+        } else {
+            mIsTwoPane = false;
+            //for phones, use linear layout manager
+            mLayoutManager = new LinearLayoutManager(this);
+        }
+
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         //get recipe Items to set to adapter
