@@ -1,5 +1,6 @@
 package com.example.android.bakingapp.ui;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -34,8 +35,6 @@ import butterknife.BindView;
 public class RecipeStepsFragment extends Fragment implements
         recipeStepsAdapter.RecipeStepsAdapterListener{
 
-    //TODO: add a list of recipe Items, and a setter method for getting them, and a setter method for setting the index
-
     private RecipeItem mRecipeItem;
     private List<Steps> mSteps;
     private List<Ingredients> mIngredients;
@@ -45,10 +44,16 @@ public class RecipeStepsFragment extends Fragment implements
     private recipeStepsAdapter mAdapter;
     private static String PARCELLED_RECIPE = "parcelled_recipe";
     private static String LOG_TAG = "Recipe Steps Fragment";
+    private onStepClickedListener mCallback;
 
 
     //empty constructor for creating the Fragment
     public RecipeStepsFragment(){}
+
+    //listener interface
+    public interface onStepClickedListener{
+        void onStepClicked(Steps step, int position);
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -90,7 +95,7 @@ public class RecipeStepsFragment extends Fragment implements
 
         //set recipe steps to adapter
         mSteps = mRecipeItem.getRecipeSteps();
-        mAdapter = new recipeStepsAdapter(getContext(), mSteps, this);
+        mAdapter = new recipeStepsAdapter(getActivity(), mSteps, this);
         mAdapter.setStepsForNextView(mSteps);
         //set adapter to recycler view
         mRecyclerView.setAdapter(mAdapter);
@@ -105,10 +110,17 @@ public class RecipeStepsFragment extends Fragment implements
 
     @Override
     public void onClickMethod(Steps step, int position) {
-        Intent intent = new Intent(getActivity(), RecipeDetailedPhone.class);
-        String detailedDescription = step.getDescription();
-        startActivity(intent);
-        Toast.makeText(getActivity(), detailedDescription,Toast.LENGTH_SHORT).show();
-        Log.e(LOG_TAG, detailedDescription);
+        mCallback.onStepClicked(step, position);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            mCallback = (onStepClickedListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString()
+                    + " must implement OnImageClickListener");
+        }
     }
 }

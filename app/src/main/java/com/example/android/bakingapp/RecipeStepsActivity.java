@@ -11,13 +11,13 @@ import com.example.android.bakingapp.model.RecipeItem;
 import com.example.android.bakingapp.model.Steps;
 import com.example.android.bakingapp.ui.RecipeStepsFragment;
 
-public class RecipeStepsActivity extends AppCompatActivity {
+public class RecipeStepsActivity extends AppCompatActivity implements RecipeStepsFragment.onStepClickedListener {
 
     private RecipeItem mParcelledRecipeItem;
     private static String PARCELLED_RECIPE = "parcelled_recipe";
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_steps);
 
@@ -35,5 +35,12 @@ public class RecipeStepsActivity extends AppCompatActivity {
                 .add(R.id.steps_list_container, stepsFragment)
                 .commit();
 
+    }
+
+    @Override
+    public void onStepClicked(Steps step, int position) {
+        Intent intent = new Intent(this, RecipeDetailedPhone.class);
+        startActivity(intent);
+        Toast.makeText(this, "Position clicked = " + position, Toast.LENGTH_SHORT).show();
     }
 }
