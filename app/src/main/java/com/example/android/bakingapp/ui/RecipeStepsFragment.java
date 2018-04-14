@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.android.bakingapp.R;
+import com.example.android.bakingapp.RecipeStepsActivity;
 import com.example.android.bakingapp.adapters.recipeStepsAdapter;
 import com.example.android.bakingapp.model.Ingredients;
 import com.example.android.bakingapp.model.RecipeItem;
@@ -83,7 +84,7 @@ public class RecipeStepsFragment extends Fragment {
 
         //set recipe steps to adapter
         mSteps = mRecipeItem.getRecipeSteps();
-        mAdapter = new recipeStepsAdapter(getContext(), mSteps);
+        mAdapter = new recipeStepsAdapter(getContext(), mSteps, this);
         mAdapter.setStepsForNextView(mSteps);
         //set adapter to recycler view
         mRecyclerView.setAdapter(mAdapter);

@@ -39,7 +39,6 @@ public class recipeItemAdapter extends RecyclerView.Adapter<recipeItemAdapter.Vi
     }
 
     //create viewholder class
-    //TODO: implement OnClickListener
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         @BindView(R.id.recipe_item_tv)
         TextView mRecipeItemTv;

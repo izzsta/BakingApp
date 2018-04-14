@@ -24,15 +24,23 @@ public class recipeStepsAdapter extends RecyclerView.Adapter<recipeStepsAdapter.
 
     private Context mContext;
     private List<Steps> mSteps;
+    private RecipeStepsAdapterListener mClickHandler;
 
     //constructor
-    public recipeStepsAdapter(Context c, List<Steps> listOfSteps){
+    public recipeStepsAdapter(Context c, List<Steps> listOfSteps,
+                              RecipeStepsAdapterListener recipeStepsAdapterListener){
     mSteps = listOfSteps;
     mContext = c;
+    mClickHandler = recipeStepsAdapterListener;
+    }
+
+    //create interface that requires onClick Method to be implemented
+    public interface RecipeStepsAdapterListener{
+        void onClickMethod(Steps step, int position);
     }
 
     //create custom viewholder
-    class ViewHolder extends RecyclerView.ViewHolder{
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         @BindView(R.id.steps_tv)
         TextView stepsTv;
 
@@ -40,6 +48,14 @@ public class recipeStepsAdapter extends RecyclerView.Adapter<recipeStepsAdapter.
         private ViewHolder(View itemView){
             super(itemView);
             ButterKnife.bind(this, itemView);
+        }
+
+        @Override
+        public void onClick(View view) {
+            Steps step;
+            int adapterPosition = getAdapterPosition();
+            step = mSteps.get(adapterPosition);
+            mClickHandler.onClickMethod(step, adapterPosition);
         }
     }
 
