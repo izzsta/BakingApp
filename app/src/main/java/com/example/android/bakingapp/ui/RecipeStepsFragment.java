@@ -42,7 +42,7 @@ public class RecipeStepsFragment extends Fragment implements
     private TextView mIngredientsTv;
     private RecyclerView.LayoutManager mLayoutManager;
     private recipeStepsAdapter mAdapter;
-    private static String PARCELLED_RECIPE = "parcelled_recipe";
+    private static final String PARCELLED_RECIPE_TO_STEP_FRAGMENT = "parcelled_recipe_to_step";
     private static String LOG_TAG = "Recipe Steps Fragment";
     private onStepClickedListener mCallback;
 
@@ -52,7 +52,7 @@ public class RecipeStepsFragment extends Fragment implements
 
     //listener interface
     public interface onStepClickedListener{
-        void onStepClicked(Steps step, int position);
+        void onStepClicked(List<Steps> stepsToPassIn, int position);
     }
 
     @Override
@@ -70,7 +70,7 @@ public class RecipeStepsFragment extends Fragment implements
         //get the Bundled, selected recipe item from the MainActivity, and pass it to the stepsAdapter
         Bundle bundle = this.getArguments();
         if(bundle != null){
-            mRecipeItem = bundle.getParcelable(PARCELLED_RECIPE);
+            mRecipeItem = bundle.getParcelable(PARCELLED_RECIPE_TO_STEP_FRAGMENT);
         }
         //set up Ingredient's view
         mIngredientsTv = rootView.findViewById(R.id.ingredients_tv);
@@ -95,7 +95,7 @@ public class RecipeStepsFragment extends Fragment implements
 
         //set recipe steps to adapter
         mSteps = mRecipeItem.getRecipeSteps();
-        mAdapter = new recipeStepsAdapter(getActivity(), mSteps, this);
+        mAdapter = new recipeStepsAdapter(getContext(), mSteps, this);
         mAdapter.setStepsForNextView(mSteps);
         //set adapter to recycler view
         mRecyclerView.setAdapter(mAdapter);
@@ -109,8 +109,8 @@ public class RecipeStepsFragment extends Fragment implements
     }
 
     @Override
-    public void onClickMethod(Steps step, int position) {
-        mCallback.onStepClicked(step, position);
+    public void onClickMethod(List<Steps> stepsToRecipe, int position) {
+        mCallback.onStepClicked(stepsToRecipe, position);
     }
 
     @Override

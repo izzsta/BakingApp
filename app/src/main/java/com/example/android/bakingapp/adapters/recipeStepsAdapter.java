@@ -36,7 +36,7 @@ public class recipeStepsAdapter extends RecyclerView.Adapter<recipeStepsAdapter.
 
     //create interface that requires onClick Method to be implemented
     public interface RecipeStepsAdapterListener{
-        void onClickMethod(Steps step, int position);
+        void onClickMethod(List<Steps> passedInList, int position);
     }
 
     //create custom viewholder
@@ -48,14 +48,13 @@ public class recipeStepsAdapter extends RecyclerView.Adapter<recipeStepsAdapter.
         private ViewHolder(View itemView){
             super(itemView);
             ButterKnife.bind(this, itemView);
+            itemView.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
-            Steps step;
             int adapterPosition = getAdapterPosition();
-            step = mSteps.get(adapterPosition);
-            mClickHandler.onClickMethod(step, adapterPosition);
+            mClickHandler.onClickMethod(mSteps, adapterPosition);
         }
     }
 

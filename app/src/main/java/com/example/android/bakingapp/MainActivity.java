@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity implements recipeItemAdapter
     private RecyclerView.LayoutManager mLayoutManager;
     private recipeItemAdapter mAdapter;
     private ArrayList<RecipeItem> mRecipeData;
+    private static final String PARCELLED_RECIPE_ITEM = "parcelled_recipe_item";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements recipeItemAdapter
     @Override
     public void onClickMethod(RecipeItem recipeItem, int position) {
         Intent newIntent = new Intent(this, RecipeStepsActivity.class);
-        newIntent.putExtra("parcelled_recipeItem", recipeItem);
+        newIntent.putExtra(PARCELLED_RECIPE_ITEM, recipeItem);
         startActivity(newIntent);
     }
 

@@ -8,7 +8,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:textSize="36sp"
-        android:id="@+id/detailed_instructions_tv"
-        android:text="Detailed Instructions Go Here"/>
+        android:id="@+id/detailed_instructions_tv"/>
 
 </android.support.constraint.ConstraintLayout>
