@@ -22,13 +22,12 @@ import butterknife.ButterKnife;
 
 public class recipeStepsAdapter extends RecyclerView.Adapter<recipeStepsAdapter.ViewHolder> {
 
-    private RecipeItem mRecipeItem;
     private Context mContext;
     private List<Steps> mSteps;
 
     //constructor
-    public recipeStepsAdapter(Context c, RecipeItem recipeItem){
-    mRecipeItem = recipeItem;
+    public recipeStepsAdapter(Context c, List<Steps> listOfSteps){
+    mSteps = listOfSteps;
     mContext = c;
     }
 
@@ -42,7 +41,6 @@ public class recipeStepsAdapter extends RecyclerView.Adapter<recipeStepsAdapter.
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
-
     }
 
     @Override
@@ -57,13 +55,25 @@ public class recipeStepsAdapter extends RecyclerView.Adapter<recipeStepsAdapter.
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        mSteps = mRecipeItem.getRecipeSteps();
-        Steps bindingStep = mSteps.get(position);
-        holder.stepsTv.setText(bindingStep.getShortDescription());
-    }
+        //returns a step
+            Steps bindingStep = mSteps.get(position);
+            //gets short description of step
+            String bindingDescription = bindingStep.getShortDescription();
+            //puts description to text view
+            holder.stepsTv.setText(bindingDescription);
+        }
 
     @Override
     public int getItemCount() {
-        return mSteps.size();
+        if (mSteps != null) {
+            return mSteps.size();
+        } else {
+            return 0;
+        }
+    }
+
+    public void setStepsForNextView(List<Steps> selectedSteps){
+        mSteps = selectedSteps;
+        notifyDataSetChanged();
     }
 }

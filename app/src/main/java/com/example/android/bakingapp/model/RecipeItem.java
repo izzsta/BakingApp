@@ -66,8 +66,10 @@ public class RecipeItem implements Parcelable {
     //override Parcelable methods
     private RecipeItem(Parcel in) {
         mName = in.readString();
-        mIngredients = in.readList();
-        mRecipeSteps = in.readSerializable();
+        mIngredients = new ArrayList<Ingredients>();
+        in.readList(mIngredients, Ingredients.class.getClassLoader());
+        mRecipeSteps = new ArrayList<Steps>();
+        in.readList(mRecipeSteps, Steps.class.getClassLoader());
     }
 
     @Override

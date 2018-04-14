@@ -52,17 +52,11 @@ public class RecipeData {
             JSONArray baseJsonArray = new JSONArray(jsonString);
 
             String name;
-            int quantity;
-            String measure;
-            String ingredientDescription;
-            String shortDescription;
-            String description;
-            String videoUrl;
-
-            List<Ingredients> listOfIngredients = new ArrayList<>();
-            List<Steps> listOfSteps = new ArrayList<>();
 
             for (int i = 0; i < baseJsonArray.length(); i++) {
+
+                List<Ingredients> listOfIngredients = new ArrayList<>();
+                List<Steps> listOfSteps = new ArrayList<>();
 
                 JSONObject recipeObject = baseJsonArray.getJSONObject(i);
 
@@ -72,6 +66,8 @@ public class RecipeData {
                     name = null;
                 }
 
+                Ingredients foundIngredient;
+
                 if (recipeObject.has("ingredients")) {
                     JSONArray ingredientsArray = recipeObject.getJSONArray("ingredients");
 
@@ -79,16 +75,18 @@ public class RecipeData {
 
                         JSONObject ingredient = ingredientsArray.getJSONObject(j);
 
-                        quantity = ingredient.getInt("quantity");
-                        measure = ingredient.getString("measure");
-                        ingredientDescription = ingredient.getString("ingredient");
+                        int quantity = ingredient.getInt("quantity");
+                        String measure = ingredient.getString("measure");
+                        String ingredientDescription = ingredient.getString("ingredient");
 
-                        Ingredients foundIngredient = new Ingredients(quantity, measure, ingredientDescription);
+                        foundIngredient = new Ingredients(quantity, measure, ingredientDescription);
                         listOfIngredients.add(foundIngredient);
                     }
                 } else {
-                    listOfIngredients = null;
+                    foundIngredient = null;
                 }
+
+                Steps foundStep;
 
                 if(recipeObject.has("steps")){
                     JSONArray stepsArray = recipeObject.getJSONArray("steps");
@@ -96,18 +94,18 @@ public class RecipeData {
                     for(int k = 0; k < stepsArray.length(); k++){
                         JSONObject step = stepsArray.getJSONObject(k);
 
-                        shortDescription = step.getString("shortDescription");
-                        description = step.getString("description");
-                        videoUrl = step.getString("videoURL");
+                        String shortDescription = step.getString("shortDescription");
+                        String description = step.getString("description");
+                        String videoUrl = step.getString("videoURL");
 
-                        Steps foundSteps = new Steps(shortDescription, description, videoUrl);
-                        listOfSteps.add(foundSteps);
+                        foundStep = new Steps(shortDescription, description, videoUrl);
+                        listOfSteps.add(foundStep);
                     }
                 } else {
-                    listOfSteps = null;
+                    foundStep = null;
                 }
 
-                //create new BookItem object and add to the Array List
+                //create new RecipeItem object and add to the Array List
                RecipeItem foundRecipe = new RecipeItem(name, listOfIngredients, listOfSteps);
                 String foundName = foundRecipe.getName();
                 List<Ingredients> foundIngredients = foundRecipe.getIngredients();
