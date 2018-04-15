@@ -43,6 +43,7 @@ public class VideoFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRetainInstance(true);
     }
 
     @Nullable
@@ -88,25 +89,6 @@ public class VideoFragment extends Fragment {
         }
         outState.putLong(PLAYER_POSITION, playbackPosition);
         outState.putBoolean(PLAYBACK_READY, playbackReady);
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        initializeExoPlayer(Uri.parse(exampleVideo));
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        //TODO: store Uri in member variable
-        initializeExoPlayer(Uri.parse(exampleVideo));
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        releasePlayer();
     }
 
     @Override

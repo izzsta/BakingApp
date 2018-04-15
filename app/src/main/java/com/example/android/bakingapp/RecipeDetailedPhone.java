@@ -21,10 +21,15 @@ public class RecipeDetailedPhone extends AppCompatActivity {
     private Bundle bundleToStepsFragment;
     private FragmentManager fragmentManager;
     private boolean isLandscape;
+    private VideoFragment mVideoFragment;
     private static final String BUNDLED_STEPS_TO_DETAIL_ACTIVITY = "bundles_steps_to_detail";
     private static final String STEP_TO_FRAGMENT = "step_to_fragment";
     private static final String STEP_INDEX = "selected_step_index";
     private static final String LIST_OF_STEPS = "list_of_steps";
+    private static final String RETAINED_VIDEO_FRAGMENT_TAG = "VideoFragment";
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,21 +44,35 @@ public class RecipeDetailedPhone extends AppCompatActivity {
         mSelectedStep = mListOfSteps.get(mStepNumber);
 
         fragmentManager = getSupportFragmentManager();
+        mVideoFragment = (VideoFragment)fragmentManager.findFragmentByTag(RETAINED_VIDEO_FRAGMENT_TAG);
 
         if (findViewById(R.id.landscape_phone) != null) {
+
             isLandscape = true;
 
-                VideoFragment videoFragment = new VideoFragment();
+            if(savedInstanceState != null){
                 fragmentManager.beginTransaction()
-                        .add(R.id.video_container, videoFragment)
+                        .add(R.id.video_container, mVideoFragment)
                         .commit();
+            } else {
+                mVideoFragment = new VideoFragment();
+                fragmentManager.beginTransaction()
+                        .add(R.id.video_container, mVideoFragment)
+                        .commit();
+            }
 
         } else {
-                VideoFragment videoFragment = new VideoFragment();
-                fragmentManager.beginTransaction()
-                        .add(R.id.video_container, videoFragment)
-                        .commit();
 
+            if(savedInstanceState != null){
+                fragmentManager.beginTransaction()
+                        .add(R.id.video_container, mVideoFragment)
+                        .commit();
+            } else {
+                mVideoFragment = new VideoFragment();
+                fragmentManager.beginTransaction()
+                        .add(R.id.video_container, mVideoFragment)
+                        .commit();
+            }
 
             InstructionDetailFragment instructionDetailFragment = new InstructionDetailFragment();
             //send received information to fragments
@@ -64,6 +83,8 @@ public class RecipeDetailedPhone extends AppCompatActivity {
             fragmentManager.beginTransaction()
                     .add(R.id.detailed_instructions_container, instructionDetailFragment)
                     .commit();
+
+            //set up button functionality
             if (!isLandscape) {
                 Button button = findViewById(R.id.next_button);
                 button.setOnClickListener(new View.OnClickListener() {
