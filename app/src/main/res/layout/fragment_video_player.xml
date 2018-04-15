@@ -7,10 +7,9 @@
 
     <!-- to be SimpleExoPlayerLater -->
 
-    <TextView
+    <com.google.android.exoplayer2.ui.SimpleExoPlayerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/exo_player_view"
-        android:text="Simple Exo Player View"/>
+        android:id="@+id/exo_player_view" />
 
 </android.support.constraint.ConstraintLayout>

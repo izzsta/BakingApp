@@ -43,15 +43,17 @@ public class RecipeDetailedPhone extends AppCompatActivity {
         if (findViewById(R.id.landscape_phone) != null) {
             isLandscape = true;
 
-            VideoFragment videoFragment = new VideoFragment();
-            fragmentManager.beginTransaction()
-                    .add(R.id.video_container, videoFragment)
-                    .commit();
+                VideoFragment videoFragment = new VideoFragment();
+                fragmentManager.beginTransaction()
+                        .add(R.id.video_container, videoFragment)
+                        .commit();
+
         } else {
-            VideoFragment videoFragment = new VideoFragment();
-            fragmentManager.beginTransaction()
-                    .add(R.id.video_container, videoFragment)
-                    .commit();
+                VideoFragment videoFragment = new VideoFragment();
+                fragmentManager.beginTransaction()
+                        .add(R.id.video_container, videoFragment)
+                        .commit();
+
 
             InstructionDetailFragment instructionDetailFragment = new InstructionDetailFragment();
             //send received information to fragments
