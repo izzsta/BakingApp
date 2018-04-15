@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:baselineAligned="false"
+    android:orientation="horizontal"
+    tools:context="com.example.android.bakingapp.RecipeStepsActivity">
+
+    <!-- the steps and detail layout for tablets -->
+
+    <FrameLayout
+        android:layout_width="400dp"
+        android:layout_height="match_parent"
+        android:id="@+id/steps_list_container"></FrameLayout>
+
+    <!-- A divider -->
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="@android:color/darker_gray" />
+
+    <!-- Linear Layout for further recipe details -->
+    <LinearLayout
+        android:layout_width="400dp"
+        android:layout_height="match_parent"
+        android:id="@+id/tablet_detail_layout"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3"
+            android:id="@+id/video_container"></FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:id="@+id/detailed_instructions_container"></FrameLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
