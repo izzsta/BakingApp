@@ -12,6 +12,7 @@ import com.example.android.bakingapp.model.RecipeItem;
 import com.example.android.bakingapp.model.Steps;
 import com.example.android.bakingapp.ui.InstructionDetailFragment;
 import com.example.android.bakingapp.ui.RecipeStepsFragment;
+import com.example.android.bakingapp.ui.VideoFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,8 +56,14 @@ public class RecipeStepsActivity extends AppCompatActivity implements RecipeStep
 
         if(findViewById(R.id.tablet_detail_layout) != null){
             mIsTwoPane = true;
-            InstructionDetailFragment instructionDetailFragment = new InstructionDetailFragment();
 
+            if(savedInstanceState == null){
+                VideoFragment videoFragment = new VideoFragment();
+                fragmentManager.beginTransaction()
+                        .add(R.id.video_container, videoFragment)
+                        .commit();
+            }
+            InstructionDetailFragment instructionDetailFragment = new InstructionDetailFragment();
             //send received information to fragments
             Bundle bundleInstructionsFragment = new Bundle();
             bundleInstructionsFragment.putParcelable(STEP_TO_FRAGMENT, mSelectedStep);

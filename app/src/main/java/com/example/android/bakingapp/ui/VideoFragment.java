@@ -14,6 +14,7 @@ import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.LoadControl;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
+import com.google.android.exoplayer2.source.ConcatenatingMediaSource;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
@@ -35,7 +36,9 @@ public class VideoFragment extends Fragment {
     private SimpleExoPlayerView simpleExoPlayerView;
     private static final String PLAYER_POSITION = "playback_position";
     private static final String PLAYBACK_READY = "playback_ready";
-    private String exampleVideo = "https://d17h27t6h515a5.cloudfront.net/topher/2017/April/58ffd974_-intro-creampie/-intro-creampie.mp4";
+    private String exampleVideo1 = "https://d17h27t6h515a5.cloudfront.net/topher/2017/April/58ffd974_-intro-creampie/-intro-creampie.mp4";
+    private String exampleVideo2 = "https://d17h27t6h515a5.cloudfront.net/topher/2017/April/58ffd9a6_2-mix-sugar-crackers-creampie/2-mix-sugar-crackers-creampie.mp4";
+
 
     public VideoFragment(){}
 
@@ -48,13 +51,13 @@ public class VideoFragment extends Fragment {
             playbackReady = savedInstanceState.getBoolean(PLAYBACK_READY);
         }
         simpleExoPlayerView = rootView.findViewById(R.id.exo_player_view);
-        initializeExoPlayer(Uri.parse(exampleVideo));
+        initializeExoPlayer(Uri.parse(exampleVideo1), Uri.parse(exampleVideo2));
 
         return rootView;
     }
 
     //initialise ExoPlayer
-    public void initializeExoPlayer(Uri uri){
+    public void initializeExoPlayer(Uri firstUri, Uri secondUri){
             if(mSimpleExoPlayer == null){
                 //create an instance of the ExoPlayer
                 TrackSelector trackSelector = new DefaultTrackSelector();
@@ -64,9 +67,12 @@ public class VideoFragment extends Fragment {
 
                 //prepare the mediasource
                 String userAgent = Util.getUserAgent(getContext(), "BakingApp");
-                MediaSource mediaSource = new ExtractorMediaSource(uri, new DefaultDataSourceFactory(getContext(),
+                MediaSource firstMediaSource = new ExtractorMediaSource(firstUri, new DefaultDataSourceFactory(getContext(),
                         userAgent), new DefaultExtractorsFactory(), null, null);
-                mSimpleExoPlayer.prepare(mediaSource);
+                MediaSource secondMediaSource = new ExtractorMediaSource(secondUri, new DefaultDataSourceFactory(getContext(),
+                        userAgent), new DefaultExtractorsFactory(), null, null);
+                ConcatenatingMediaSource concatenatingMediaSource = new ConcatenatingMediaSource(firstMediaSource, secondMediaSource);
+                mSimpleExoPlayer.prepare(concatenatingMediaSource);
                 mSimpleExoPlayer.setPlayWhenReady(playbackReady);
                 mSimpleExoPlayer.seekTo(currentWindow, playbackPosition);
             }
