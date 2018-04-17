@@ -46,34 +46,24 @@ public class RecipeStepsFragment extends Fragment implements
     private static String LOG_TAG = "Recipe Steps Fragment";
     private onStepClickedListener mCallback;
 
-
     //empty constructor for creating the Fragment
     public RecipeStepsFragment(){}
 
-    //listener interface
-    public interface onStepClickedListener{
-        void onStepClicked(List<Steps> stepsToPassIn, int position);
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    //method to inflate the appropriate xml layout for the fragment
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        //inflate the recipe steps fragment
+        //inflate the recipe steps fragment xml
         View rootView = inflater.inflate(R.layout.fragment_recipe_steps, container, false);
 
-        //get the Bundled, selected recipe item from the MainActivity, and pass it to the stepsAdapter
+        //get the Bundled, selected recipe item from the MainActivity
         Bundle bundle = this.getArguments();
         if(bundle != null){
             mRecipeItem = bundle.getParcelable(PARCELLED_RECIPE_TO_STEP_FRAGMENT);
         }
-        //set up Ingredient's view
+
+        //set up Ingredient's text view
         mIngredientsTv = rootView.findViewById(R.id.ingredients_tv);
+        //get ingredients from received Recipe Item and reformat them
         mIngredients = mRecipeItem.getIngredients();
         StringBuilder ingredientsToDisplay = new StringBuilder();
 
@@ -83,7 +73,7 @@ public class RecipeStepsFragment extends Fragment implements
                     passedIngredient.getMeasure() + " " + passedIngredient.getIngredientDescription() + "\n";
             ingredientsToDisplay.append(ingredientDetail);
         }
-
+        //set all ingredients to the text view
         mIngredientsTv.setText(ingredientsToDisplay.toString());
 
         //set the fragment's recycler view to a linear layout manager
@@ -104,18 +94,23 @@ public class RecipeStepsFragment extends Fragment implements
         return rootView;
     }
 
-    public void setmRecipeItem(RecipeItem recipeItem){
-        mRecipeItem = recipeItem;
+    //define a listener interface, which has the same parameters as the recycler view's interface
+    public interface onStepClickedListener{
+        void onStepClicked(List<Steps> stepsToPassIn, int position);
     }
 
+    //override the recycler view's interface
     @Override
     public void onClickMethod(List<Steps> stepsToRecipe, int position) {
+        //pass the arguements to this fragment's interface
         mCallback.onStepClicked(stepsToRecipe, position);
     }
 
+    //check that the supporting activity has this fragment's interface implemented upon attachment
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        //check that th
         try {
             mCallback = (onStepClickedListener) context;
         } catch (ClassCastException e) {

@@ -45,12 +45,18 @@ public class VideoFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+        //set up views
         View rootView = inflater.inflate(R.layout.fragment_video_player, container, false);
+        simpleExoPlayerView = rootView.findViewById(R.id.exo_player_view);
+
+        //if video has already been started, pick up from where it left off
         if (savedInstanceState != null){
             playbackPosition = savedInstanceState.getLong(PLAYER_POSITION);
             playbackReady = savedInstanceState.getBoolean(PLAYBACK_READY);
         }
-        simpleExoPlayerView = rootView.findViewById(R.id.exo_player_view);
+
+        //TODO: put a whole list of videos in the ExoPlayer
+        //initialise ExoPlayer
         initializeExoPlayer(Uri.parse(exampleVideo1), Uri.parse(exampleVideo2));
 
         return rootView;
@@ -67,6 +73,7 @@ public class VideoFragment extends Fragment {
 
                 //prepare the mediasource
                 String userAgent = Util.getUserAgent(getContext(), "BakingApp");
+                //TODO: make this a loop, to allow looping through all videos
                 MediaSource firstMediaSource = new ExtractorMediaSource(firstUri, new DefaultDataSourceFactory(getContext(),
                         userAgent), new DefaultExtractorsFactory(), null, null);
                 MediaSource secondMediaSource = new ExtractorMediaSource(secondUri, new DefaultDataSourceFactory(getContext(),
@@ -81,6 +88,7 @@ public class VideoFragment extends Fragment {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
+        //save state so that upon rotation, the video doesn't restart
         if(mSimpleExoPlayer != null){
             playbackPosition = mSimpleExoPlayer.getCurrentPosition();
             playbackReady = mSimpleExoPlayer.getPlayWhenReady();

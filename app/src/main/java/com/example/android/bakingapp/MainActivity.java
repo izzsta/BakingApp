@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements recipeItemAdapter
 
         ButterKnife.bind(this);
 
-        mRecyclerView.setHasFixedSize(true);
+        //set the appropriate layout manager depending on screen size
         if(findViewById(R.id.tablet_main_screen) != null){
             mIsTwoPane = true;
             //for tablets, use grid layout manager
@@ -49,17 +49,19 @@ public class MainActivity extends AppCompatActivity implements recipeItemAdapter
         }
 
         mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setHasFixedSize(true);
 
         //get recipe Items to set to adapter
-       mRecipeData = extractRecipesFromJson(loadJSONFromAsset(this));
+        mRecipeData = extractRecipesFromJson(loadJSONFromAsset(this));
 
-        // specify an adapter
+        //set the found recipe data to the adapter
         mAdapter = new recipeItemAdapter(this, mRecipeData, this);
         mRecyclerView.setAdapter(mAdapter);
     }
 
     @Override
     public void onClickMethod(RecipeItem recipeItem, int position) {
+        //on clicking an item in the recycler view, open new activity and pass recipeItem
         Intent newIntent = new Intent(this, RecipeStepsActivity.class);
         newIntent.putExtra(PARCELLED_RECIPE_ITEM, recipeItem);
         startActivity(newIntent);
