@@ -7,7 +7,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.android.bakingapp.model.RecipeItem;
-import com.example.android.bakingapp.model.Steps;
+
+import com.example.android.bakingapp.model.Step;
 import com.example.android.bakingapp.ui.InstructionDetailFragment;
 import com.example.android.bakingapp.ui.RecipeStepsFragment;
 import com.example.android.bakingapp.ui.VideoFragment;
@@ -26,7 +27,7 @@ public class RecipeStepsActivity extends AppCompatActivity implements RecipeStep
     private RecipeItem mParcelledRecipeItem;
     private boolean mIsTwoPane;
     private FragmentManager fragmentManager;
-    private Steps mSelectedStep;
+    private Step mSelectedStep;
 
     //TODO: define some interface that allows different steps to be highlighted when scrolling through videos
 
@@ -51,7 +52,7 @@ public class RecipeStepsActivity extends AppCompatActivity implements RecipeStep
                 .commit();
 
         //TODO: what does this do?
-        List<Steps> allSteps = mParcelledRecipeItem.getRecipeSteps();
+        List<Step> allSteps = mParcelledRecipeItem.getSteps();
         mSelectedStep = allSteps.get(0);
 
         //check the screen size, and set up fragments accordingly
@@ -82,7 +83,7 @@ public class RecipeStepsActivity extends AppCompatActivity implements RecipeStep
 
     //override the interface in the RecipeDetailsFragment, and define actions for the received parameters
     @Override
-    public void onStepClicked(List<Steps> stepsToRecipe, int position) {
+    public void onStepClicked(List<Step> stepsToRecipe, int position) {
         if (mIsTwoPane) {
             //if we're using a tablet, clicking a step changes the content of the instructions fragment
             mSelectedStep = stepsToRecipe.get(position);

@@ -6,20 +6,22 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.Toast;
+import android.util.Log;
 
 import com.example.android.bakingapp.adapters.recipeItemAdapter;
-import com.example.android.bakingapp.model.Ingredients;
+import com.example.android.bakingapp.data.ApiUtils;
+import com.example.android.bakingapp.data.RecipeService;
 import com.example.android.bakingapp.model.RecipeItem;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
-import static com.example.android.bakingapp.data.RecipeData.extractRecipesFromJson;
-import static com.example.android.bakingapp.data.RecipeData.loadJSONFromAsset;
+
 
 public class MainActivity extends AppCompatActivity implements recipeItemAdapter.RecipeItemAdapterListener{
 
@@ -27,6 +29,7 @@ public class MainActivity extends AppCompatActivity implements recipeItemAdapter
     private RecyclerView.LayoutManager mLayoutManager;
     private recipeItemAdapter mAdapter;
     private ArrayList<RecipeItem> mRecipeData;
+    private RecipeService mRecipeService;
     private static final String PARCELLED_RECIPE_ITEM = "parcelled_recipe_item";
     private boolean mIsTwoPane = false;
 
@@ -34,8 +37,8 @@ public class MainActivity extends AppCompatActivity implements recipeItemAdapter
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         ButterKnife.bind(this);
+        mRecipeService = ApiUtils.getSOService();
 
         //set the appropriate layout manager depending on screen size
         if(findViewById(R.id.tablet_main_screen) != null){
@@ -52,11 +55,36 @@ public class MainActivity extends AppCompatActivity implements recipeItemAdapter
         mRecyclerView.setHasFixedSize(true);
 
         //get recipe Items to set to adapter
-        mRecipeData = extractRecipesFromJson(loadJSONFromAsset(this));
+        //mRecipeData = extractRecipesFromJson(loadJSONFromAsset(this));
 
         //set the found recipe data to the adapter
-        mAdapter = new recipeItemAdapter(this, mRecipeData, this);
+        mAdapter = new recipeItemAdapter(this, new ArrayList<RecipeItem>(0), this);
         mRecyclerView.setAdapter(mAdapter);
+
+        loadAnswers();
+    }
+
+
+    //method for loading data via Retrofit for the Adapter
+    public void loadAnswers(){
+        mRecipeService.getAnswers().enqueue(new Callback<ArrayList<RecipeItem>>() {
+            @Override
+            public void onResponse(Call<ArrayList<RecipeItem>> call, Response<ArrayList<RecipeItem>> response) {
+                if(response.isSuccessful()) {
+                    mRecipeData = response.body();
+                    mAdapter.setRecipesToAdapter(mRecipeData);
+                    Log.d("MainActivity", "posts loaded from API");
+                } else {
+                    int statusCode  = response.code();
+                    // handle request errors depending on status code
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<RecipeItem>> call, Throwable t) {
+                Log.d("MainActivity", "error loading from API");
+            }
+    });
     }
 
     @Override

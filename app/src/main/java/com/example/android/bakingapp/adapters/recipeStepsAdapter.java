@@ -8,8 +8,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.android.bakingapp.R;
-import com.example.android.bakingapp.model.RecipeItem;
-import com.example.android.bakingapp.model.Steps;
+import com.example.android.bakingapp.model.Step;
+
 
 import java.util.List;
 
@@ -23,11 +23,11 @@ import butterknife.ButterKnife;
 public class recipeStepsAdapter extends RecyclerView.Adapter<recipeStepsAdapter.ViewHolder> {
 
     private Context mContext;
-    private List<Steps> mSteps;
+    private List<Step> mSteps;
     private RecipeStepsAdapterListener mClickHandler;
 
     //constructor
-    public recipeStepsAdapter(Context c, List<Steps> listOfSteps,
+    public recipeStepsAdapter(Context c, List<Step> listOfSteps,
                               RecipeStepsAdapterListener recipeStepsAdapterListener){
     mSteps = listOfSteps;
     mContext = c;
@@ -36,7 +36,7 @@ public class recipeStepsAdapter extends RecyclerView.Adapter<recipeStepsAdapter.
 
     //create interface that requires onClick Method to be implemented
     public interface RecipeStepsAdapterListener{
-        void onClickMethod(List<Steps> passedInList, int position);
+        void onClickMethod(List<Step> passedInList, int position);
     }
 
     //create custom viewholder
@@ -71,7 +71,7 @@ public class recipeStepsAdapter extends RecyclerView.Adapter<recipeStepsAdapter.
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         //returns a step
-            Steps bindingStep = mSteps.get(position);
+            Step bindingStep = mSteps.get(position);
             //gets short description of step
             String bindingDescription = bindingStep.getShortDescription();
             //puts description to text view
@@ -87,7 +87,7 @@ public class recipeStepsAdapter extends RecyclerView.Adapter<recipeStepsAdapter.
         }
     }
 
-    public void setStepsForNextView(List<Steps> selectedSteps){
+    public void setStepsForNextView(List<Step> selectedSteps){
         mSteps = selectedSteps;
         notifyDataSetChanged();
     }

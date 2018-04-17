@@ -3,9 +3,8 @@ package com.example.android.bakingapp.data;
 import android.content.Context;
 import android.util.Log;
 
-import com.example.android.bakingapp.model.Ingredients;
 import com.example.android.bakingapp.model.RecipeItem;
-import com.example.android.bakingapp.model.Steps;
+
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,11 +18,11 @@ import java.util.List;
 /**
  * Created by izzystannett on 09/04/2018.
  */
-//method to extract recipe info from the JSON file in the assets folder
+// OLD method to extract recipe info from the JSON file in the assets folder
 
 public class RecipeData {
 
-    private static final String LOG_TAG = RecipeData.class.getSimpleName();
+  /*  private static final String LOG_TAG = RecipeData.class.getSimpleName();
 
     //get JSON in the form of a string (code taken from StackOverflow)
     public static String loadJSONFromAsset(Context context) {
@@ -120,4 +119,5 @@ public class RecipeData {
         }
         return null;
     }
+    */
 }

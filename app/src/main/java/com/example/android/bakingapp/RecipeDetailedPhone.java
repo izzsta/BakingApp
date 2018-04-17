@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.android.bakingapp.model.Steps;
+import com.example.android.bakingapp.model.Step;
 import com.example.android.bakingapp.ui.InstructionDetailFragment;
 import com.example.android.bakingapp.ui.VideoFragment;
 
@@ -19,8 +19,8 @@ public class RecipeDetailedPhone extends AppCompatActivity {
     private static final String STEP_TO_FRAGMENT = "step_to_fragment";
     private static final String STEP_INDEX = "selected_step_index";
     private static final String LIST_OF_STEPS = "list_of_steps";
-    private List<Steps> mListOfSteps;
-    private Steps mSelectedStep;
+    private List<Step> mListOfSteps;
+    private Step mSelectedStep;
     private int mStepNumber;
     private Bundle bundleToStepsFragment;
     private FragmentManager fragmentManager;
