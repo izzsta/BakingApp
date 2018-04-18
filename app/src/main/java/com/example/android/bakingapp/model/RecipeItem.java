@@ -6,6 +6,7 @@ import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -94,7 +95,9 @@ public class RecipeItem implements Parcelable {
     //override Parcelable methods
     private RecipeItem(Parcel in) {
         name = in.readString();
+        ingredients = new ArrayList<>();
         in.readList(ingredients, Ingredient.class.getClassLoader());
+        steps = new ArrayList<>();
         in.readList(steps, Step.class.getClassLoader());
     }
 

@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements recipeItemAdapter
 
             @Override
             public void onFailure(Call<ArrayList<RecipeItem>> call, Throwable t) {
-                Log.d("MainActivity", "error loading from API");
+                Log.d("MainActivity", "error loading from API" + t.getMessage());
             }
     });
     }
