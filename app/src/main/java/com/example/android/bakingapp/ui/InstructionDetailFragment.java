@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.android.bakingapp.R;
-import com.example.android.bakingapp.model.Steps;
+import com.example.android.bakingapp.model.Step;
 
 /**
  * Created by izzystannett on 14/04/2018.
@@ -17,7 +17,7 @@ import com.example.android.bakingapp.model.Steps;
 
 public class InstructionDetailFragment extends Fragment {
 
-    private static Steps mStepSelected;
+    private static Step mStepSelected;
     private static final String STEP_TO_FRAGMENT = "step_to_fragment";
 
     public InstructionDetailFragment(){}

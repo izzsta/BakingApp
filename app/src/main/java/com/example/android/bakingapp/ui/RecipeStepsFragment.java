@@ -19,9 +19,9 @@ import com.example.android.bakingapp.R;
 import com.example.android.bakingapp.RecipeDetailedPhone;
 import com.example.android.bakingapp.RecipeStepsActivity;
 import com.example.android.bakingapp.adapters.recipeStepsAdapter;
-import com.example.android.bakingapp.model.Ingredients;
+import com.example.android.bakingapp.model.Ingredient;
 import com.example.android.bakingapp.model.RecipeItem;
-import com.example.android.bakingapp.model.Steps;
+import com.example.android.bakingapp.model.Step;
 
 import java.util.List;
 
@@ -36,8 +36,8 @@ public class RecipeStepsFragment extends Fragment implements
         recipeStepsAdapter.RecipeStepsAdapterListener{
 
     private RecipeItem mRecipeItem;
-    private List<Steps> mSteps;
-    private List<Ingredients> mIngredients;
+    private List<Step> mSteps;
+    private List<Ingredient> mIngredients;
     private RecyclerView mRecyclerView;
     private TextView mIngredientsTv;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -68,9 +68,9 @@ public class RecipeStepsFragment extends Fragment implements
         StringBuilder ingredientsToDisplay = new StringBuilder();
 
         for (int i = 0; i<mIngredients.size(); i++){
-            Ingredients passedIngredient = mIngredients.get(i);
+            Ingredient passedIngredient = mIngredients.get(i);
             String ingredientDetail = String.valueOf(passedIngredient.getQuantity()) + " " +
-                    passedIngredient.getMeasure() + " " + passedIngredient.getIngredientDescription() + "\n";
+                    passedIngredient.getMeasure() + " " + passedIngredient.getIngredient() + "\n";
             ingredientsToDisplay.append(ingredientDetail);
         }
         //set all ingredients to the text view
@@ -84,7 +84,7 @@ public class RecipeStepsFragment extends Fragment implements
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         //set recipe steps to adapter
-        mSteps = mRecipeItem.getRecipeSteps();
+        mSteps = mRecipeItem.getSteps();
         mAdapter = new recipeStepsAdapter(getContext(), mSteps, this);
         mAdapter.setStepsForNextView(mSteps);
         //set adapter to recycler view
@@ -96,12 +96,12 @@ public class RecipeStepsFragment extends Fragment implements
 
     //define a listener interface, which has the same parameters as the recycler view's interface
     public interface onStepClickedListener{
-        void onStepClicked(List<Steps> stepsToPassIn, int position);
+        void onStepClicked(List<Step> stepsToPassIn, int position);
     }
 
     //override the recycler view's interface
     @Override
-    public void onClickMethod(List<Steps> stepsToRecipe, int position) {
+    public void onClickMethod(List<Step> stepsToRecipe, int position) {
         //pass the arguements to this fragment's interface
         mCallback.onStepClicked(stepsToRecipe, position);
     }

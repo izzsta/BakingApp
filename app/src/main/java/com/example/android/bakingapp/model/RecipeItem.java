@@ -3,54 +3,83 @@ package com.example.android.bakingapp.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.io.NotSerializableException;
-import java.io.Serializable;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by izzystannett on 09/04/2018.
- */
 
 public class RecipeItem implements Parcelable {
 
-    private String mName;
-    private List<Ingredients> mIngredients;
-    private List<Steps> mRecipeSteps;
+    @SerializedName("id")
+    @Expose
+    private Integer id;
+    @SerializedName("name")
+    @Expose
+    private String name;
+    @SerializedName("ingredients")
+    @Expose
+    private List<Ingredient> ingredients = null;
+    @SerializedName("steps")
+    @Expose
+    private List<Step> steps = null;
+    @SerializedName("servings")
+    @Expose
+    private Integer servings;
+    @SerializedName("image")
+    @Expose
+    private String image;
 
-    public RecipeItem(String name, List<Ingredients> ingredients, List<Steps> recipeSteps){
-        mName = name;
-        mIngredients = ingredients;
-        mRecipeSteps = recipeSteps;
-    }
-    //getter methods
-    public String getName(){
-        return mName;
-    }
-
-    public List<Ingredients> getIngredients(){
-        return mIngredients;
-    }
-
-    public List<Steps> getRecipeSteps(){
-        return mRecipeSteps;
-    }
-
-    //setter methods
-    public void setName(String name){
-        mName = name;
+    public Integer getId() {
+        return id;
     }
 
-    public void setIngredients(List<Ingredients> ingredients){
-        mIngredients = ingredients;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public void setRecipeSteps(List<Steps> recipeSteps){
-        mRecipeSteps = recipeSteps;
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<Ingredient> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(List<Ingredient> ingredients) {
+        this.ingredients = ingredients;
+    }
+
+    public List<Step> getSteps() {
+        return steps;
+    }
+
+    public void setSteps(List<Step> steps) {
+        this.steps = steps;
+    }
+
+    public Integer getServings() {
+        return servings;
+    }
+
+    public void setServings(Integer servings) {
+        this.servings = servings;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     //parcellable methods
-
     public static final Creator CREATOR = new Creator() {
         @Override
         public RecipeItem createFromParcel(Parcel parcel) {
@@ -65,11 +94,11 @@ public class RecipeItem implements Parcelable {
 
     //override Parcelable methods
     private RecipeItem(Parcel in) {
-        mName = in.readString();
-        mIngredients = new ArrayList<Ingredients>();
-        in.readList(mIngredients, Ingredients.class.getClassLoader());
-        mRecipeSteps = new ArrayList<Steps>();
-        in.readList(mRecipeSteps, Steps.class.getClassLoader());
+        name = in.readString();
+        ingredients = new ArrayList<>();
+        in.readList(ingredients, Ingredient.class.getClassLoader());
+        steps = new ArrayList<>();
+        in.readList(steps, Step.class.getClassLoader());
     }
 
     @Override
@@ -79,8 +108,11 @@ public class RecipeItem implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(mName);
-        parcel.writeList(mIngredients);
-        parcel.writeList(mRecipeSteps);
+        parcel.writeString(name);
+        parcel.writeList(ingredients);
+        parcel.writeList(steps);
     }
+
 }
+
+
