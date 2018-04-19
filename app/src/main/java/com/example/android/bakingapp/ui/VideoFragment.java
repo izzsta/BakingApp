@@ -57,6 +57,7 @@ public class VideoFragment extends Fragment {
 
         //TODO: put a whole list of videos in the ExoPlayer
         //initialise ExoPlayer
+
         initializeExoPlayer(Uri.parse(exampleVideo1), Uri.parse(exampleVideo2));
 
         return rootView;

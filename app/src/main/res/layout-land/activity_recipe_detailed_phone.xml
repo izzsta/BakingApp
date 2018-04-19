@@ -8,8 +8,6 @@
     tools:context="com.example.android.bakingapp.RecipeDetailedPhone"
     android:id="@+id/landscape_phone">
 
-    <!-- video at top, instructions underneath, button at bottom -->
-
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

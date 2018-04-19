@@ -30,7 +30,6 @@ public class MainActivity extends AppCompatActivity implements recipeItemAdapter
     private recipeItemAdapter mAdapter;
     private ArrayList<RecipeItem> mRecipeData;
     private RecipeService mRecipeService;
-    private static final String PARCELLED_RECIPE_ITEM = "parcelled_recipe_item";
     private boolean mIsTwoPane = false;
 
     @Override
@@ -91,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements recipeItemAdapter
     public void onClickMethod(RecipeItem recipeItem, int position) {
         //on clicking an item in the recycler view, open new activity and pass recipeItem
         Intent newIntent = new Intent(this, RecipeStepsActivity.class);
-        newIntent.putExtra(PARCELLED_RECIPE_ITEM, recipeItem);
+        newIntent.putExtra(Constants.PARCELLED_RECIPE_ITEM, recipeItem);
         startActivity(newIntent);
     }
 
