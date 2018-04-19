@@ -102,7 +102,7 @@ public class RecipeStepsFragment extends Fragment implements
     //override the recycler view's interface
     @Override
     public void onClickMethod(RecipeItem recipeItem, int position) {
-        //pass the arguements to this fragment's interface
+        //pass the arguments to this fragment's interface
         mCallback.onStepClicked(recipeItem, position);
     }
 

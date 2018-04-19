@@ -31,7 +31,7 @@ public class RecipeDetailedPhone extends AppCompatActivity {
 
         //get information from intent
         Intent receivedIntent = getIntent();
-        Bundle receivedBundle = receivedIntent.getExtras();
+        Bundle receivedBundle = receivedIntent.getBundleExtra(Constants.RECIPE_BUNDLE_TO_DETAIL);
 
         if(receivedBundle != null) {
             mRecipeItem = receivedBundle.getParcelable(Constants.PARCELLED_RECIPE_ITEM);
