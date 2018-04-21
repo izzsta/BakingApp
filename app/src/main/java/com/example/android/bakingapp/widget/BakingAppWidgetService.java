@@ -1,6 +1,8 @@
 package com.example.android.bakingapp.widget;
 
 import android.app.IntentService;
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.Nullable;
@@ -51,27 +53,10 @@ public class BakingAppWidgetService extends IntentService{
 
     public void handleUpdateWidget(RecipeItem recipeItem){
 
-        CharSequence widgetTitle;
-        CharSequence widgetText;
-
-        widgetTitle = recipeItem.getName();
-
-        List<Ingredient> receivedIngredients = recipeItem.getIngredients();
-        //set remote view to the ingredients
-        StringBuilder ingredientsForWidget = new StringBuilder();
-
-        for (int i = 0; i<receivedIngredients.size(); i++){
-            Ingredient passedIngredient = receivedIngredients.get(i);
-            String ingredientDetail = String.valueOf(passedIngredient.getQuantity()) + " " +
-                    passedIngredient.getMeasure() + " " + passedIngredient.getIngredient() + "\n";
-            ingredientsForWidget.append(ingredientDetail);
-        }
-        widgetText = ingredientsForWidget.toString();
-
-    // Construct the RemoteViews object
-        RemoteViews views = new RemoteViews(getPackageName(), R.layout.baking_app_widget_provider);
-        views.setTextViewText(R.id.appwidget_title, widgetTitle);
-        views.setTextViewText(R.id.appwidget_text, widgetText);
-
+        AppWidgetManager appWidgetManager  = AppWidgetManager.getInstance(this);
+        int [] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(this,
+                BakingAppWidgetProvider.class));
+        //update all widgets
+        BakingAppWidgetProvider.updateBakingAppWidgets(this, appWidgetManager, recipeItem, appWidgetIds);
     }
 }
