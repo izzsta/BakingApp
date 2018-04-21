@@ -1,5 +1,8 @@
 package com.example.android.bakingapp;
 
+import android.appwidget.AppWidgetManager;
+import android.appwidget.AppWidgetProvider;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,6 +15,7 @@ import com.example.android.bakingapp.adapters.recipeItemAdapter;
 import com.example.android.bakingapp.data.ApiUtils;
 import com.example.android.bakingapp.data.RecipeService;
 import com.example.android.bakingapp.model.RecipeItem;
+import com.example.android.bakingapp.widget.BakingAppWidgetProvider;
 
 import java.util.ArrayList;
 
@@ -92,6 +96,12 @@ public class MainActivity extends AppCompatActivity implements recipeItemAdapter
         Intent newIntent = new Intent(this, RecipeStepsActivity.class);
         newIntent.putExtra(Constants.PARCELLED_RECIPE_ITEM, recipeItem);
         startActivity(newIntent);
+
+        //TODO: send the recipe to the widget
+        Intent intent = new Intent(this, BakingAppWidgetProvider.class);
+        intent.setAction("android.appwidget.action.APPWIDGET_UPDATE");
+        intent.putExtra(Constants.RECIPE_TO_WIDGET, recipeItem);
+        sendBroadcast(intent);
     }
 
 }

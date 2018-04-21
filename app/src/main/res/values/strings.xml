@@ -2,4 +2,7 @@
     <string name="app_name">BakingApp</string>
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
+    <string name="appwidget_no_recipe">No Recipe</string>
+    <string name="appwidget_select_recipe">Select recipe for ingredients list</string>
+
 </resources>
