@@ -13,4 +13,6 @@
         android:layout_height="match_parent"
         android:id="@+id/video_container"></FrameLayout>
 
+    <!-- TODO: add previous/next button? -->
+
 </LinearLayout>

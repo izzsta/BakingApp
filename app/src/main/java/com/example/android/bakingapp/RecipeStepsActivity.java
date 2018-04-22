@@ -80,16 +80,20 @@ public class RecipeStepsActivity extends AppCompatActivity implements RecipeStep
         if (mIsTwoPane) {
             //if we're using a tablet, clicking a step changes the content of the instructions fragment
             mStepIndex = position;
+
+            VideoFragment videoFragment = new VideoFragment();
+            videoFragment.setArguments(createBundle(mParcelledRecipeItem, mStepIndex));
+            fragmentManager.beginTransaction()
+                    .replace(R.id.video_container, videoFragment)
+                    .commit();
+
             InstructionDetailFragment instructionDetailFragment = new InstructionDetailFragment();
-            //send info to fragment
             instructionDetailFragment.setArguments(createBundle(mParcelledRecipeItem, mStepIndex));
-            //replace existing fragment view
-            fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction()
                     .replace(R.id.detailed_instructions_container, instructionDetailFragment)
                     .commit();
         } else {
-            //if we're using a phone, open new activity and send list of steps to it
+            //if we're using a phone, open new activity and send recipe to it
             Intent openRecipeDetailsIntent = new Intent(this, RecipeDetailedPhone.class);
             openRecipeDetailsIntent.putExtra(Constants.RECIPE_BUNDLE_TO_DETAIL,
                     createBundle(recipeItem, position));

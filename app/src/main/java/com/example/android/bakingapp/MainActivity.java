@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements recipeItemAdapter
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         mRecipeService = ApiUtils.getSOService();
+        //TODO: is this handling connectivity properly?
 
         //set the appropriate layout manager depending on screen size
         if(findViewById(R.id.tablet_main_screen) != null){
@@ -97,7 +98,7 @@ public class MainActivity extends AppCompatActivity implements recipeItemAdapter
         newIntent.putExtra(Constants.PARCELLED_RECIPE_ITEM, recipeItem);
         startActivity(newIntent);
 
-        //TODO: send the recipe to the widget
+        //sends recipe to widget
         Intent intent = new Intent(this, BakingAppWidgetProvider.class);
         intent.setAction("android.appwidget.action.APPWIDGET_UPDATE");
         intent.putExtra(Constants.RECIPE_TO_WIDGET, recipeItem);

@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.android.bakingapp.model.RecipeItem;
 import com.example.android.bakingapp.model.Step;
@@ -33,7 +34,7 @@ public class RecipeDetailedPhone extends AppCompatActivity {
         Intent receivedIntent = getIntent();
         Bundle receivedBundle = receivedIntent.getBundleExtra(Constants.RECIPE_BUNDLE_TO_DETAIL);
 
-        if(receivedBundle != null) {
+        if (receivedBundle != null) {
             mRecipeItem = receivedBundle.getParcelable(Constants.PARCELLED_RECIPE_ITEM);
             mStepIndex = receivedBundle.getInt(Constants.STEP_INDEX, 0);
         }
@@ -72,38 +73,50 @@ public class RecipeDetailedPhone extends AppCompatActivity {
                         .add(R.id.detailed_instructions_container, instructionDetailFragment)
                         .commit();
 
-            }}
-
-            //set up button functionality
-            if (!isLandscape) {
-                Button button = findViewById(R.id.next_button);
-                button.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        //TODO: make this work, condense this code, make it highlight a different item in the steps list
-                        if (mStepIndex < mListOfSteps.size()) {
-                            mStepIndex++;
-                            mSelectedStep = mListOfSteps.get(mStepIndex);
-                            bundleToStepsFragment.putParcelable(Constants.STEP_TO_FRAGMENT, mSelectedStep);
-                            InstructionDetailFragment newInstructionFragment = new InstructionDetailFragment();
-                            newInstructionFragment.setArguments(bundleToStepsFragment);
-                            fragmentManager.beginTransaction()
-                                    .replace(R.id.detailed_instructions_container, newInstructionFragment)
-                                    .commit();
-                        } else {
-                            mStepIndex = 0;
-                            mSelectedStep = mListOfSteps.get(mStepIndex);
-                            bundleToStepsFragment.putParcelable(Constants.STEP_TO_FRAGMENT, mSelectedStep);
-                            InstructionDetailFragment newInstructionFragment = new InstructionDetailFragment();
-                            newInstructionFragment.setArguments(bundleToStepsFragment);
-                            fragmentManager.beginTransaction()
-                                    .replace(R.id.detailed_instructions_container, newInstructionFragment)
-                                    .commit();
-                        }
-                    }
-                });
             }
         }
+
+        //set up button functionality
+        if (!isLandscape) {
+            Button mPreviousButton = findViewById(R.id.previous_button);
+            mPreviousButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //TODO: make it highlight a different item in the steps list
+                    if (mStepIndex > 0) {
+                        mStepIndex--;
+                        //TODO: put these strings in the resource file
+                        InstructionDetailFragment newInstructionFragment = new InstructionDetailFragment();
+                        newInstructionFragment.setArguments(createBundle(mRecipeItem, mStepIndex));
+                        fragmentManager.beginTransaction()
+                                .replace(R.id.detailed_instructions_container, newInstructionFragment)
+                                .commit();
+                    } else {
+                        Toast.makeText(getBaseContext(), "This is the first step!", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+
+            Button mNextButton = findViewById(R.id.next_button);
+            mNextButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //TODO: make it highlight a different item in the steps list
+                    if (mStepIndex < mListOfSteps.size()-1) {
+                        mStepIndex++;
+                        //TODO: put these strings in the resource file
+                        InstructionDetailFragment newInstructionFragment = new InstructionDetailFragment();
+                        newInstructionFragment.setArguments(createBundle(mRecipeItem, mStepIndex));
+                        fragmentManager.beginTransaction()
+                                .replace(R.id.detailed_instructions_container, newInstructionFragment)
+                                .commit();
+                    } else {
+                        Toast.makeText(getBaseContext(), "This is the last step!", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        }
+    }
 
     public Bundle createBundle(RecipeItem recipeItem, int stepIndex) {
         Bundle thisBundle = new Bundle();

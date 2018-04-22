@@ -7,8 +7,12 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
+import com.example.android.bakingapp.Constants;
 import com.example.android.bakingapp.R;
+import com.example.android.bakingapp.model.RecipeItem;
+import com.example.android.bakingapp.model.Step;
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.LoadControl;
@@ -22,6 +26,9 @@ import com.google.android.exoplayer2.trackselection.TrackSelector;
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
+import com.squareup.picasso.Picasso;
+
+import java.util.List;
 
 /**
  * Created by izzystannett on 14/04/2018.
@@ -32,8 +39,18 @@ public class VideoFragment extends Fragment {
     private long playbackPosition;
     private boolean playbackReady = true;
     private int currentWindow;
+    private int mStepIndex;
+    private RecipeItem mRecipeItem;
+    private boolean isVideo;
+    private Step mStepSelected;
+    private List<Step> mListOfSteps;
+    private String mVideoUrlString;
+    private String mThumbnailUrlString;
+
     private SimpleExoPlayer mSimpleExoPlayer;
     private SimpleExoPlayerView simpleExoPlayerView;
+    private ImageView placeholderImageView;
+
     private static final String PLAYER_POSITION = "playback_position";
     private static final String PLAYBACK_READY = "playback_ready";
     private String exampleVideo1 = "https://d17h27t6h515a5.cloudfront.net/topher/2017/April/58ffd974_-intro-creampie/-intro-creampie.mp4";
@@ -48,6 +65,7 @@ public class VideoFragment extends Fragment {
         //set up views
         View rootView = inflater.inflate(R.layout.fragment_video_player, container, false);
         simpleExoPlayerView = rootView.findViewById(R.id.exo_player_view);
+        placeholderImageView = rootView.findViewById(R.id.placeholder_image_view);
 
         //if video has already been started, pick up from where it left off
         if (savedInstanceState != null){
@@ -55,16 +73,50 @@ public class VideoFragment extends Fragment {
             playbackReady = savedInstanceState.getBoolean(PLAYBACK_READY);
         }
 
-        //TODO: put a whole list of videos in the ExoPlayer
-        //initialise ExoPlayer
+        Bundle bundle = this.getArguments();
+        if(bundle != null){
+            mStepIndex = bundle.getInt(Constants.STEP_INDEX);
+            mRecipeItem = bundle.getParcelable(Constants.PARCELLED_RECIPE_ITEM);
+        }
 
-        initializeExoPlayer(Uri.parse(exampleVideo1), Uri.parse(exampleVideo2));
+        if(mRecipeItem != null) {
+            mListOfSteps = mRecipeItem.getSteps();
+            mStepSelected = mListOfSteps.get(mStepIndex);
+        }
+
+        String videoOrThumbnail = videoOrThumbnail(mStepSelected);
+
+        //TODO: put a whole list of videos in the ExoPlayer
+        if(isVideo) {
+            //initialise ExoPlayer
+            initializeExoPlayer(Uri.parse(videoOrThumbnail));
+        } else {
+            Picasso.get()
+                    .load(videoOrThumbnail)
+                    .placeholder(R.drawable.placeholder)
+                    .error(R.drawable.placeholder)
+                    .into(placeholderImageView);
+        }
 
         return rootView;
     }
 
+    public String videoOrThumbnail(Step step){
+        if (step.getVideoURL() != null){
+            isVideo = true;
+            simpleExoPlayerView.setVisibility(View.VISIBLE);
+            placeholderImageView.setVisibility(View.GONE);
+            return step.getVideoURL();
+        } else {
+            isVideo = false;
+            simpleExoPlayerView.setVisibility(View.GONE);
+            placeholderImageView.setVisibility(View.VISIBLE);
+            return step.getThumbnailURL();
+        }
+    }
+
     //initialise ExoPlayer
-    public void initializeExoPlayer(Uri firstUri, Uri secondUri){
+    public void initializeExoPlayer(Uri firstUri){
             if(mSimpleExoPlayer == null){
                 //create an instance of the ExoPlayer
                 TrackSelector trackSelector = new DefaultTrackSelector();
@@ -77,10 +129,10 @@ public class VideoFragment extends Fragment {
                 //TODO: make this a loop, to allow looping through all videos
                 MediaSource firstMediaSource = new ExtractorMediaSource(firstUri, new DefaultDataSourceFactory(getContext(),
                         userAgent), new DefaultExtractorsFactory(), null, null);
-                MediaSource secondMediaSource = new ExtractorMediaSource(secondUri, new DefaultDataSourceFactory(getContext(),
-                        userAgent), new DefaultExtractorsFactory(), null, null);
-                ConcatenatingMediaSource concatenatingMediaSource = new ConcatenatingMediaSource(firstMediaSource, secondMediaSource);
-                mSimpleExoPlayer.prepare(concatenatingMediaSource);
+               // MediaSource secondMediaSource = new ExtractorMediaSource(secondUri, new DefaultDataSourceFactory(getContext(),
+                //        userAgent), new DefaultExtractorsFactory(), null, null);
+                //ConcatenatingMediaSource concatenatingMediaSource = new ConcatenatingMediaSource(firstMediaSource, secondMediaSource);
+                mSimpleExoPlayer.prepare(firstMediaSource);
                 mSimpleExoPlayer.setPlayWhenReady(playbackReady);
                 mSimpleExoPlayer.seekTo(currentWindow, playbackPosition);
             }

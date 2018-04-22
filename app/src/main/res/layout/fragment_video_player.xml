@@ -5,7 +5,13 @@
     android:layout_height="match_parent"
     android:name="com.example.android.bakingapp.ui.VideoFragment">
 
-    <!-- to be SimpleExoPlayerLater -->
+    <!-- placeholder image view -->
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/placeholder_image_view"
+        android:visibility="gone"/>
 
     <com.google.android.exoplayer2.ui.SimpleExoPlayerView
         android:layout_width="match_parent"

@@ -22,9 +22,9 @@ import java.util.List;
 
 public class InstructionDetailFragment extends Fragment {
 
-    private static List<Step> mStepsList;
     private static Step mStepSelected;
     private static RecipeItem mRecipeItem;
+    private List<Step> mListOfSteps;
     private static int mStepIndex = 0;
 
     public InstructionDetailFragment(){}
@@ -40,10 +40,11 @@ public class InstructionDetailFragment extends Fragment {
         if(bundle != null){
             mStepIndex = bundle.getInt(Constants.STEP_INDEX);
             mRecipeItem = bundle.getParcelable(Constants.PARCELLED_RECIPE_ITEM);
-            mStepsList = mRecipeItem.getSteps();
         }
-
-        mStepSelected = mStepsList.get(mStepIndex);
+        if(mRecipeItem != null) {
+            mListOfSteps = mRecipeItem.getSteps();
+            mStepSelected = mListOfSteps.get(mStepIndex);
+        }
 
         TextView detailedInstructionsView = rootView.findViewById(R.id.detailed_instructions_tv);
         detailedInstructionsView.setText(mStepSelected.getDescription());
