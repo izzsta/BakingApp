@@ -72,7 +72,6 @@ public class RecipeDetailedPhone extends AppCompatActivity {
                 fragmentManager.beginTransaction()
                         .add(R.id.detailed_instructions_container, instructionDetailFragment)
                         .commit();
-
             }
         }
 
@@ -85,7 +84,14 @@ public class RecipeDetailedPhone extends AppCompatActivity {
                     //TODO: make it highlight a different item in the steps list
                     if (mStepIndex > 0) {
                         mStepIndex--;
+                        //refresh the video fragment
+                        VideoFragment videoFragment = new VideoFragment();
+                        videoFragment.setArguments(createBundle(mRecipeItem, mStepIndex));
+                        fragmentManager.beginTransaction()
+                                .replace(R.id.video_container, videoFragment)
+                                .commit();
                         //TODO: put these strings in the resource file
+                        //refresh the instructions fragment
                         InstructionDetailFragment newInstructionFragment = new InstructionDetailFragment();
                         newInstructionFragment.setArguments(createBundle(mRecipeItem, mStepIndex));
                         fragmentManager.beginTransaction()
@@ -104,7 +110,14 @@ public class RecipeDetailedPhone extends AppCompatActivity {
                     //TODO: make it highlight a different item in the steps list
                     if (mStepIndex < mListOfSteps.size()-1) {
                         mStepIndex++;
+                        //refresh the video fragment
+                        VideoFragment videoFragment = new VideoFragment();
+                        videoFragment.setArguments(createBundle(mRecipeItem, mStepIndex));
+                        fragmentManager.beginTransaction()
+                                .replace(R.id.video_container, videoFragment)
+                                .commit();
                         //TODO: put these strings in the resource file
+                        //refresh the instructions fragment
                         InstructionDetailFragment newInstructionFragment = new InstructionDetailFragment();
                         newInstructionFragment.setArguments(createBundle(mRecipeItem, mStepIndex));
                         fragmentManager.beginTransaction()

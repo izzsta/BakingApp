@@ -30,6 +30,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import butterknife.internal.Utils;
+
 /**
  * Created by izzystannett on 14/04/2018.
  */
@@ -41,11 +43,11 @@ public class VideoFragment extends Fragment {
     private int currentWindow;
     private int mStepIndex;
     private RecipeItem mRecipeItem;
-    private boolean isVideo;
     private Step mStepSelected;
     private List<Step> mListOfSteps;
-    private String mVideoUrlString;
-    private String mThumbnailUrlString;
+    private boolean mGetsHere;
+    private String mVideoString;
+    private String mThumbnailString;
 
     private SimpleExoPlayer mSimpleExoPlayer;
     private SimpleExoPlayerView simpleExoPlayerView;
@@ -82,36 +84,39 @@ public class VideoFragment extends Fragment {
         if(mRecipeItem != null) {
             mListOfSteps = mRecipeItem.getSteps();
             mStepSelected = mListOfSteps.get(mStepIndex);
+            mThumbnailString = mStepSelected.getThumbnailURL();
+            mVideoString = mStepSelected.getVideoURL();
         }
 
-        String videoOrThumbnail = videoOrThumbnail(mStepSelected);
-
-        //TODO: put a whole list of videos in the ExoPlayer
-        if(isVideo) {
-            //initialise ExoPlayer
-            initializeExoPlayer(Uri.parse(videoOrThumbnail));
-        } else {
-            Picasso.get()
-                    .load(videoOrThumbnail)
-                    .placeholder(R.drawable.placeholder)
-                    .error(R.drawable.placeholder)
-                    .into(placeholderImageView);
-        }
+        videoOrImageDisplay(mThumbnailString, mVideoString);
 
         return rootView;
     }
 
-    public String videoOrThumbnail(Step step){
-        if (step.getVideoURL() != null){
-            isVideo = true;
+    public void videoOrImageDisplay(String thumbnail, String videoUrl){
+        if (videoUrl.trim().length() == 0 || videoUrl != null){
+
             simpleExoPlayerView.setVisibility(View.VISIBLE);
             placeholderImageView.setVisibility(View.GONE);
-            return step.getVideoURL();
-        } else {
-            isVideo = false;
+
+            initializeExoPlayer(Uri.parse(videoUrl));
+
+        } else if (thumbnail.trim().length() == 0 || thumbnail != null){
+
             simpleExoPlayerView.setVisibility(View.GONE);
             placeholderImageView.setVisibility(View.VISIBLE);
-            return step.getThumbnailURL();
+
+            Picasso.get()
+                    .load(thumbnail)
+                    .placeholder(R.drawable.placeholder)
+                    .error(R.drawable.placeholder)
+                    .into(placeholderImageView);
+        } else {
+
+            simpleExoPlayerView.setVisibility(View.GONE);
+            placeholderImageView.setVisibility(View.VISIBLE);
+
+            placeholderImageView.setImageResource(R.drawable.placeholder);
         }
     }
 

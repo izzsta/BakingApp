@@ -16,6 +16,7 @@
     <com.google.android.exoplayer2.ui.SimpleExoPlayerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/exo_player_view" />
+        android:id="@+id/exo_player_view"
+        android:visibility="gone"/>
 
 </android.support.constraint.ConstraintLayout>
