@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/colorCream"
     tools:context="com.example.android.bakingapp.RecipeDetailedPhone">
 
     <!-- video at top, instructions underneath, button at bottom -->
@@ -13,7 +14,7 @@
         android:id="@+id/video_container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="4"></FrameLayout>
+        android:layout_weight="5"></FrameLayout>
 
     <FrameLayout
         android:id="@+id/detailed_instructions_container"
@@ -25,21 +26,28 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:gravity="center"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/previous_button"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="Previous"
-            android:textSize="20sp" />
+            android:background="@drawable/mybutton"
+            android:layout_margin="@dimen/margin_8dp"
+            android:text="@string/previous_button"
+            android:textSize="@dimen/button_text"
+            android:fontFamily="sans-serif" />
 
         <Button
             android:id="@+id/next_button"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="Next"
-            android:textSize="20sp" />
+            android:background="@drawable/mybutton"
+            android:layout_margin="@dimen/margin_8dp"
+            android:text="@string/next_button"
+            android:textSize="@dimen/button_text"
+            android:fontFamily="sans-serif"/>
 
     </LinearLayout>
 

@@ -1,8 +1,13 @@
 <resources>
     <string name="app_name">BakingApp</string>
     <string name="appwidget_text">EXAMPLE</string>
+    <string name="next_button">Next</string>
+    <string name="previous_button">Previous</string>
     <string name="add_widget">Add widget</string>
     <string name="appwidget_no_recipe">No Recipe</string>
     <string name="appwidget_select_recipe">Select recipe for ingredients list</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="method">Method:</string>
+
 
 </resources>

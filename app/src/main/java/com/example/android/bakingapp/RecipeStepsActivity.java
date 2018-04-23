@@ -19,11 +19,9 @@ import java.util.List;
 public class RecipeStepsActivity extends AppCompatActivity implements RecipeStepsFragment.onStepClickedListener {
 
     private RecipeItem mParcelledRecipeItem;
-    private List<Step> mAllSteps;
     private boolean mIsTwoPane;
     private Bundle mRecipeBundle;
     private FragmentManager fragmentManager;
-    private Step mSelectedStep;
     private int mStepIndex = 0;
 
     //TODO: define some interface that allows different steps to be highlighted when scrolling through videos

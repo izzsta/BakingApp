@@ -46,8 +46,8 @@ public class VideoFragment extends Fragment {
     private Step mStepSelected;
     private List<Step> mListOfSteps;
     private boolean mGetsHere;
-    private String mVideoString;
-    private String mThumbnailString;
+    @Nullable private String mVideoString;
+    @Nullable private String mThumbnailString;
 
     private SimpleExoPlayer mSimpleExoPlayer;
     private SimpleExoPlayerView simpleExoPlayerView;
@@ -93,30 +93,30 @@ public class VideoFragment extends Fragment {
         return rootView;
     }
 
-    public void videoOrImageDisplay(String thumbnail, String videoUrl){
-        if (videoUrl.trim().length() == 0 || videoUrl != null){
+    public void videoOrImageDisplay(String thumbnail,  String videoUrl){
+        if (videoUrl.trim().length() != 0){
 
             simpleExoPlayerView.setVisibility(View.VISIBLE);
             placeholderImageView.setVisibility(View.GONE);
 
             initializeExoPlayer(Uri.parse(videoUrl));
 
-        } else if (thumbnail.trim().length() == 0 || thumbnail != null){
+        } else if (thumbnail.trim().length() != 0){
 
             simpleExoPlayerView.setVisibility(View.GONE);
             placeholderImageView.setVisibility(View.VISIBLE);
 
             Picasso.get()
                     .load(thumbnail)
-                    .placeholder(R.drawable.placeholder)
-                    .error(R.drawable.placeholder)
+                    .placeholder(R.drawable.cupcake)
+                    .error(R.drawable.cupcake)
                     .into(placeholderImageView);
         } else {
 
             simpleExoPlayerView.setVisibility(View.GONE);
             placeholderImageView.setVisibility(View.VISIBLE);
 
-            placeholderImageView.setImageResource(R.drawable.placeholder);
+            placeholderImageView.setImageResource(R.drawable.cupcake);
         }
     }
 
