@@ -10,6 +10,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/steps_tv"
         android:textSize="@dimen/medium_text"
-        android:padding="@dimen/margin_12dp"/>
+        android:padding="@dimen/margin_12dp" />
 
 </android.support.constraint.ConstraintLayout>

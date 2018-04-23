@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:baselineAligned="false"
     android:orientation="horizontal"
-    android:background="@color/colorCream"
+    android:background="@color/colorAccent"
     android:id="@+id/tablet_main_screen">
     <!-- recycler view for all recipes -->
 

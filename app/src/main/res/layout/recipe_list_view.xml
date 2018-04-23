@@ -14,13 +14,13 @@
         android:layout_height="match_parent"
         card_view:cardCornerRadius="4dp"
         android:elevation="@dimen/margin_8dp"
-        android:layout_margin="4dp">
+        android:layout_margin="@dimen/margin_8dp">
 
     <TextView
         android:id="@+id/recipe_item_tv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorAccent"
+        android:background="@color/colorCream"
         android:padding="@dimen/margin_8dp"
         android:textSize="@dimen/big_text"
         android:gravity="center"/>
