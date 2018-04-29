@@ -82,7 +82,6 @@ public class RecipeDetailedPhone extends AppCompatActivity {
             mPreviousButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //TODO: make it highlight a different item in the steps list
                     if (mStepIndex > 0) {
                         mStepIndex--;
                         //refresh the video fragment
@@ -107,7 +106,6 @@ public class RecipeDetailedPhone extends AppCompatActivity {
             mNextButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //TODO: make it highlight a different item in the steps list
                     if (mStepIndex < mListOfSteps.size()-1) {
                         mStepIndex++;
                         //refresh the video fragment

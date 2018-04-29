@@ -20,7 +20,6 @@ public class RecipeStepsActivity extends AppCompatActivity implements RecipeStep
     private FragmentManager fragmentManager;
     private int mStepIndex = 0;
 
-    //TODO: define some interface that allows different steps to be highlighted when scrolling through videos
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

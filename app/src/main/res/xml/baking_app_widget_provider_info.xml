@@ -4,9 +4,8 @@
     android:initialLayout="@layout/baking_app_widget_provider"
     android:minHeight="120dp"
     android:minWidth="120dp"
-    android:previewImage="@drawable/example_appwidget_preview"
+    android:previewImage="@drawable/cupcake"
     android:resizeMode="horizontal|vertical"
     android:updatePeriodMillis="3600000"
     android:widgetCategory="home_screen"></appwidget-provider>
 
-<!-- TODO: change launcher icon -->
