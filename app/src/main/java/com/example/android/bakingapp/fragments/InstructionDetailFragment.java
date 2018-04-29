@@ -1,4 +1,4 @@
-package com.example.android.bakingapp.ui;
+package com.example.android.bakingapp.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,12 +8,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.android.bakingapp.Constants;
+import com.example.android.bakingapp.utils.Constants;
 import com.example.android.bakingapp.R;
 import com.example.android.bakingapp.model.RecipeItem;
 import com.example.android.bakingapp.model.Step;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

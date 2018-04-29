@@ -13,8 +13,8 @@ import retrofit2.http.GET;
 
 public interface RecipeService {
 
-   // @GET("/topher/2017/May/59121517_baking/baking.json")
-    @GET("android-baking-app-json")
+    String URL = "http://go.udacity.com/";
 
+    @GET("android-baking-app-json")
     Call<ArrayList<RecipeItem>> getAnswers();
 }

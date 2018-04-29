@@ -10,8 +10,9 @@ import android.widget.Toast;
 
 import com.example.android.bakingapp.model.RecipeItem;
 import com.example.android.bakingapp.model.Step;
-import com.example.android.bakingapp.ui.InstructionDetailFragment;
-import com.example.android.bakingapp.ui.VideoFragment;
+import com.example.android.bakingapp.fragments.InstructionDetailFragment;
+import com.example.android.bakingapp.fragments.VideoFragment;
+import com.example.android.bakingapp.utils.Constants;
 
 import java.util.List;
 

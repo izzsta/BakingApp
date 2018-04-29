@@ -1,4 +1,4 @@
-package com.example.android.bakingapp.ui;
+package com.example.android.bakingapp.fragments;
 
 import android.net.Uri;
 import android.support.v4.app.Fragment;
@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.example.android.bakingapp.Constants;
+import com.example.android.bakingapp.utils.Constants;
 import com.example.android.bakingapp.R;
 import com.example.android.bakingapp.model.RecipeItem;
 import com.example.android.bakingapp.model.Step;
@@ -18,7 +18,6 @@ import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.LoadControl;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
-import com.google.android.exoplayer2.source.ConcatenatingMediaSource;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
@@ -29,8 +28,6 @@ import com.google.android.exoplayer2.util.Util;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
-
-import butterknife.internal.Utils;
 
 /**
  * Created by izzystannett on 14/04/2018.
@@ -106,7 +103,7 @@ public class VideoFragment extends Fragment {
             simpleExoPlayerView.setVisibility(View.GONE);
             placeholderImageView.setVisibility(View.VISIBLE);
 
-            Picasso.get()
+            Picasso.with(getContext())
                     .load(thumbnail)
                     .placeholder(R.drawable.cupcake)
                     .error(R.drawable.cupcake)

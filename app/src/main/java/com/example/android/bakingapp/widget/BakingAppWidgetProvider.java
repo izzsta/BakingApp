@@ -7,7 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.RemoteViews;
 
-import com.example.android.bakingapp.Constants;
+import com.example.android.bakingapp.utils.Constants;
 import com.example.android.bakingapp.MainActivity;
 import com.example.android.bakingapp.R;
 import com.example.android.bakingapp.model.Ingredient;

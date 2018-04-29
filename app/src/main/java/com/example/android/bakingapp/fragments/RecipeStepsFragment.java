@@ -1,32 +1,25 @@
-package com.example.android.bakingapp.ui;
+package com.example.android.bakingapp.fragments;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.android.bakingapp.Constants;
+import com.example.android.bakingapp.utils.Constants;
 import com.example.android.bakingapp.R;
-import com.example.android.bakingapp.RecipeDetailedPhone;
-import com.example.android.bakingapp.RecipeStepsActivity;
 import com.example.android.bakingapp.adapters.recipeStepsAdapter;
 import com.example.android.bakingapp.model.Ingredient;
 import com.example.android.bakingapp.model.RecipeItem;
 import com.example.android.bakingapp.model.Step;
 
 import java.util.List;
-
-import butterknife.BindView;
 
 
 /**

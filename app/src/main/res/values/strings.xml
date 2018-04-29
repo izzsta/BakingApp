@@ -10,6 +10,8 @@
     <string name="method">Method:</string>
     <string name="first_step">This is the first step!</string>
     <string name="last_step">This is the last step!</string>
+    <string name="no_internet">No internet connection.</string>
+
 
 
 </resources>

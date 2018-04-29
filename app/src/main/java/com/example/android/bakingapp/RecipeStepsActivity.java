@@ -2,19 +2,15 @@ package com.example.android.bakingapp;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.android.bakingapp.model.RecipeItem;
 
-import com.example.android.bakingapp.model.Step;
-import com.example.android.bakingapp.ui.InstructionDetailFragment;
-import com.example.android.bakingapp.ui.RecipeStepsFragment;
-import com.example.android.bakingapp.ui.VideoFragment;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.example.android.bakingapp.fragments.InstructionDetailFragment;
+import com.example.android.bakingapp.fragments.RecipeStepsFragment;
+import com.example.android.bakingapp.fragments.VideoFragment;
+import com.example.android.bakingapp.utils.Constants;
 
 public class RecipeStepsActivity extends AppCompatActivity implements RecipeStepsFragment.onStepClickedListener {
 

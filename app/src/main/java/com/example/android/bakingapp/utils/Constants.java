@@ -1,4 +1,4 @@
-package com.example.android.bakingapp;
+package com.example.android.bakingapp.utils;
 
 /**
  * Created by izzystannett on 18/04/2018.
