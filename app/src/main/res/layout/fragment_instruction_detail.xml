@@ -7,7 +7,8 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:textSize="36sp"
+        android:textSize="@dimen/medium_text"
+        android:layout_margin="@dimen/margin_12dp"
         android:id="@+id/detailed_instructions_tv"/>
 
 </android.support.constraint.ConstraintLayout>

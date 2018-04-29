@@ -1,4 +1,4 @@
-package com.example.android.bakingapp.ui;
+package com.example.android.bakingapp.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,8 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.android.bakingapp.utils.Constants;
 import com.example.android.bakingapp.R;
+import com.example.android.bakingapp.model.RecipeItem;
 import com.example.android.bakingapp.model.Step;
+
+import java.util.List;
 
 /**
  * Created by izzystannett on 14/04/2018.
@@ -18,14 +22,11 @@ import com.example.android.bakingapp.model.Step;
 public class InstructionDetailFragment extends Fragment {
 
     private static Step mStepSelected;
-    private static final String STEP_TO_FRAGMENT = "step_to_fragment";
+    private static RecipeItem mRecipeItem;
+    private List<Step> mListOfSteps;
+    private static int mStepIndex = 0;
 
     public InstructionDetailFragment(){}
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
 
     @Nullable
     @Override
@@ -36,7 +37,12 @@ public class InstructionDetailFragment extends Fragment {
         //get bundled info from Activity
         Bundle bundle = this.getArguments();
         if(bundle != null){
-            mStepSelected = bundle.getParcelable(STEP_TO_FRAGMENT);
+            mStepIndex = bundle.getInt(Constants.STEP_INDEX);
+            mRecipeItem = bundle.getParcelable(Constants.PARCELLED_RECIPE_ITEM);
+        }
+        if(mRecipeItem != null) {
+            mListOfSteps = mRecipeItem.getSteps();
+            mStepSelected = mListOfSteps.get(mStepIndex);
         }
 
         TextView detailedInstructionsView = rootView.findViewById(R.id.detailed_instructions_tv);

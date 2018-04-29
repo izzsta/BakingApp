@@ -1,15 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:name="com.example.android.bakingapp.ui.VideoFragment">
 
-    <!-- to be SimpleExoPlayerLater -->
+    <!-- placeholder image view -->
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/placeholder_image_view" />
+
+    <!-- ExoPlayer view -->
 
     <com.google.android.exoplayer2.ui.SimpleExoPlayerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/exo_player_view" />
 
-</android.support.constraint.ConstraintLayout>
+
+</LinearLayout>

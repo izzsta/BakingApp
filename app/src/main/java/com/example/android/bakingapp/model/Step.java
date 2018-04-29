@@ -77,9 +77,11 @@ public class Step implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(id);
         parcel.writeString(shortDescription);
         parcel.writeString(description);
         parcel.writeString(videoURL);
+        parcel.writeString(thumbnailURL);
     }
 
     public static final Parcelable.Creator<Step> CREATOR = new Parcelable.Creator<Step>() {
@@ -95,8 +97,10 @@ public class Step implements Parcelable {
     };
 
     public Step(Parcel parcel) {
+        id = parcel.readInt();
         shortDescription = parcel.readString();
         description = parcel.readString();
         videoURL = parcel.readString();
+        thumbnailURL = parcel.readString();
     }
 }

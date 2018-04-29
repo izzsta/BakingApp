@@ -1,31 +1,25 @@
-package com.example.android.bakingapp.ui;
+package com.example.android.bakingapp.fragments;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.example.android.bakingapp.utils.Constants;
 import com.example.android.bakingapp.R;
-import com.example.android.bakingapp.RecipeDetailedPhone;
-import com.example.android.bakingapp.RecipeStepsActivity;
 import com.example.android.bakingapp.adapters.recipeStepsAdapter;
 import com.example.android.bakingapp.model.Ingredient;
 import com.example.android.bakingapp.model.RecipeItem;
 import com.example.android.bakingapp.model.Step;
 
 import java.util.List;
-
-import butterknife.BindView;
 
 
 /**
@@ -37,12 +31,13 @@ public class RecipeStepsFragment extends Fragment implements
 
     private RecipeItem mRecipeItem;
     private List<Step> mSteps;
+    private String mRecipeName;
     private List<Ingredient> mIngredients;
     private RecyclerView mRecyclerView;
+    private TextView mRecipeNameTv;
     private TextView mIngredientsTv;
     private RecyclerView.LayoutManager mLayoutManager;
     private recipeStepsAdapter mAdapter;
-    private static final String PARCELLED_RECIPE_TO_STEP_FRAGMENT = "parcelled_recipe_to_step";
     private static String LOG_TAG = "Recipe Steps Fragment";
     private onStepClickedListener mCallback;
 
@@ -58,13 +53,18 @@ public class RecipeStepsFragment extends Fragment implements
         //get the Bundled, selected recipe item from the MainActivity
         Bundle bundle = this.getArguments();
         if(bundle != null){
-            mRecipeItem = bundle.getParcelable(PARCELLED_RECIPE_TO_STEP_FRAGMENT);
+            mRecipeItem = bundle.getParcelable(Constants.PARCELLED_RECIPE_ITEM);
         }
 
-        //set up Ingredient's text view
+        //set up Recipe Name and Ingredients text views
+        mRecipeNameTv = rootView.findViewById(R.id.recipe_name_tv);
         mIngredientsTv = rootView.findViewById(R.id.ingredients_tv);
-        //get ingredients from received Recipe Item and reformat them
+        //get recipe name and ingredients from received Recipe Item and reformat them
+        mRecipeName = mRecipeItem.getName();
         mIngredients = mRecipeItem.getIngredients();
+        //set recipe name to text view
+        mRecipeNameTv.setText(mRecipeName);
+        //create string to set ingredients text view to
         StringBuilder ingredientsToDisplay = new StringBuilder();
 
         for (int i = 0; i<mIngredients.size(); i++){
@@ -85,7 +85,7 @@ public class RecipeStepsFragment extends Fragment implements
 
         //set recipe steps to adapter
         mSteps = mRecipeItem.getSteps();
-        mAdapter = new recipeStepsAdapter(getContext(), mSteps, this);
+        mAdapter = new recipeStepsAdapter(getContext(), mRecipeItem, this);
         mAdapter.setStepsForNextView(mSteps);
         //set adapter to recycler view
         mRecyclerView.setAdapter(mAdapter);
@@ -96,14 +96,14 @@ public class RecipeStepsFragment extends Fragment implements
 
     //define a listener interface, which has the same parameters as the recycler view's interface
     public interface onStepClickedListener{
-        void onStepClicked(List<Step> stepsToPassIn, int position);
+        void onStepClicked(RecipeItem recipeItem, int position);
     }
 
     //override the recycler view's interface
     @Override
-    public void onClickMethod(List<Step> stepsToRecipe, int position) {
-        //pass the arguements to this fragment's interface
-        mCallback.onStepClicked(stepsToRecipe, position);
+    public void onClickMethod(RecipeItem recipeItem, int position) {
+        //pass the arguments to this fragment's interface
+        mCallback.onStepClicked(recipeItem, position);
     }
 
     //check that the supporting activity has this fragment's interface implemented upon attachment

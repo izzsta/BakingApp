@@ -5,14 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/colorCream"
     tools:context="com.example.android.bakingapp.RecipeDetailedPhone"
     android:id="@+id/landscape_phone">
-
-    <!-- video at top, instructions underneath, button at bottom -->
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_margin="@dimen/margin_8dp"
         android:id="@+id/video_container"></FrameLayout>
 
 </LinearLayout>
