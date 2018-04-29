@@ -8,11 +8,20 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/recipe_name_tv"
+        android:textStyle="bold"
+        android:textSize="@dimen/big_text"
+        android:layout_marginLeft="@dimen/margin_12dp"
+        android:layout_marginTop="@dimen/margin_8dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text = "@string/ingredients"
         android:textStyle="bold"
-        android:textSize="@dimen/small_text"
+        android:textSize="@dimen/medium_text"
         android:layout_marginLeft="@dimen/margin_12dp"
-        android:layout_marginTop="@dimen/margin_12dp"/>
+        android:layout_marginTop="@dimen/margin_4dp"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -20,7 +29,7 @@
         android:id="@+id/ingredients_tv"
         android:textSize="@dimen/small_text"
         android:layout_marginLeft="@dimen/margin_12dp"
-        android:layout_marginTop="@dimen/margin_12dp"/>
+        android:layout_marginTop="@dimen/margin_4dp"/>
 
     <TextView
         android:layout_width="match_parent"

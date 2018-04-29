@@ -8,6 +8,8 @@
     <string name="appwidget_select_recipe">Select recipe for ingredients list</string>
     <string name="ingredients">Ingredients</string>
     <string name="method">Method:</string>
+    <string name="first_step">This is the first step!</string>
+    <string name="last_step">This is the last step!</string>
 
 
 </resources>

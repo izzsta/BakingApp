@@ -90,7 +90,6 @@ public class RecipeDetailedPhone extends AppCompatActivity {
                         fragmentManager.beginTransaction()
                                 .replace(R.id.video_container, videoFragment)
                                 .commit();
-                        //TODO: put these strings in the resource file
                         //refresh the instructions fragment
                         InstructionDetailFragment newInstructionFragment = new InstructionDetailFragment();
                         newInstructionFragment.setArguments(createBundle(mRecipeItem, mStepIndex));
@@ -98,7 +97,7 @@ public class RecipeDetailedPhone extends AppCompatActivity {
                                 .replace(R.id.detailed_instructions_container, newInstructionFragment)
                                 .commit();
                     } else {
-                        Toast.makeText(getBaseContext(), "This is the first step!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getBaseContext(), getResources().getString(R.string.first_step), Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -116,7 +115,6 @@ public class RecipeDetailedPhone extends AppCompatActivity {
                         fragmentManager.beginTransaction()
                                 .replace(R.id.video_container, videoFragment)
                                 .commit();
-                        //TODO: put these strings in the resource file
                         //refresh the instructions fragment
                         InstructionDetailFragment newInstructionFragment = new InstructionDetailFragment();
                         newInstructionFragment.setArguments(createBundle(mRecipeItem, mStepIndex));
@@ -124,7 +122,7 @@ public class RecipeDetailedPhone extends AppCompatActivity {
                                 .replace(R.id.detailed_instructions_container, newInstructionFragment)
                                 .commit();
                     } else {
-                        Toast.makeText(getBaseContext(), "This is the last step!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getBaseContext(), getResources().getString(R.string.last_step), Toast.LENGTH_SHORT).show();
                     }
                 }
             });

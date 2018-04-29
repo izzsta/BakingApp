@@ -38,8 +38,10 @@ public class RecipeStepsFragment extends Fragment implements
 
     private RecipeItem mRecipeItem;
     private List<Step> mSteps;
+    private String mRecipeName;
     private List<Ingredient> mIngredients;
     private RecyclerView mRecyclerView;
+    private TextView mRecipeNameTv;
     private TextView mIngredientsTv;
     private RecyclerView.LayoutManager mLayoutManager;
     private recipeStepsAdapter mAdapter;
@@ -61,10 +63,15 @@ public class RecipeStepsFragment extends Fragment implements
             mRecipeItem = bundle.getParcelable(Constants.PARCELLED_RECIPE_ITEM);
         }
 
-        //set up Ingredient's text view
+        //set up Recipe Name and Ingredients text views
+        mRecipeNameTv = rootView.findViewById(R.id.recipe_name_tv);
         mIngredientsTv = rootView.findViewById(R.id.ingredients_tv);
-        //get ingredients from received Recipe Item and reformat them
+        //get recipe name and ingredients from received Recipe Item and reformat them
+        mRecipeName = mRecipeItem.getName();
         mIngredients = mRecipeItem.getIngredients();
+        //set recipe name to text view
+        mRecipeNameTv.setText(mRecipeName);
+        //create string to set ingredients text view to
         StringBuilder ingredientsToDisplay = new StringBuilder();
 
         for (int i = 0; i<mIngredients.size(); i++){

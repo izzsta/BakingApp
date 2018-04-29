@@ -131,12 +131,8 @@ public class VideoFragment extends Fragment {
 
                 //prepare the mediasource
                 String userAgent = Util.getUserAgent(getContext(), "BakingApp");
-                //TODO: make this a loop, to allow looping through all videos
                 MediaSource firstMediaSource = new ExtractorMediaSource(firstUri, new DefaultDataSourceFactory(getContext(),
                         userAgent), new DefaultExtractorsFactory(), null, null);
-               // MediaSource secondMediaSource = new ExtractorMediaSource(secondUri, new DefaultDataSourceFactory(getContext(),
-                //        userAgent), new DefaultExtractorsFactory(), null, null);
-                //ConcatenatingMediaSource concatenatingMediaSource = new ConcatenatingMediaSource(firstMediaSource, secondMediaSource);
                 mSimpleExoPlayer.prepare(firstMediaSource);
                 mSimpleExoPlayer.setPlayWhenReady(playbackReady);
                 mSimpleExoPlayer.seekTo(currentWindow, playbackPosition);

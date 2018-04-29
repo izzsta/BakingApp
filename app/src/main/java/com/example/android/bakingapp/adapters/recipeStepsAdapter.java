@@ -1,6 +1,7 @@
 package com.example.android.bakingapp.adapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +28,7 @@ public class recipeStepsAdapter extends RecyclerView.Adapter<recipeStepsAdapter.
     private RecipeItem mRecipeItem;
     private List<Step> mSteps;
     private RecipeStepsAdapterListener mClickHandler;
+    int selectedPosition = -1;
 
     //constructor
     public recipeStepsAdapter(Context c, RecipeItem recipeItem,
@@ -71,15 +73,16 @@ public class recipeStepsAdapter extends RecyclerView.Adapter<recipeStepsAdapter.
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
+
         //returns a step
-            mSteps = mRecipeItem.getSteps();
-            Step bindingStep = mSteps.get(position);
-            //gets short description of step
-            String bindingDescription = bindingStep.getShortDescription();
-            //puts description to text view
-            holder.stepsTv.setText(bindingDescription);
-        }
+        mSteps = mRecipeItem.getSteps();
+        Step bindingStep = mSteps.get(position);
+        //gets short description of step
+        String bindingDescription = bindingStep.getShortDescription();
+        //puts description to text view
+        holder.stepsTv.setText(bindingDescription);
+    }
 
     @Override
     public int getItemCount() {

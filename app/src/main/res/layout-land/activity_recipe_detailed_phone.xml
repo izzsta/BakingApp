@@ -12,8 +12,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_margin="@dimen/margin_8dp"
         android:id="@+id/video_container"></FrameLayout>
-
-    <!-- TODO: add previous/next button? -->
 
 </LinearLayout>
