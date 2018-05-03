@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.example.android.bakingapp.utils.Constants;
 import com.example.android.bakingapp.R;
-import com.example.android.bakingapp.adapters.recipeStepsAdapter;
+import com.example.android.bakingapp.adapters.RecipeStepsAdapter;
 import com.example.android.bakingapp.model.Ingredient;
 import com.example.android.bakingapp.model.RecipeItem;
 import com.example.android.bakingapp.model.Step;
@@ -27,8 +27,9 @@ import java.util.List;
  */
 
 public class RecipeStepsFragment extends Fragment implements
-        recipeStepsAdapter.RecipeStepsAdapterListener{
+        RecipeStepsAdapter.RecipeStepsAdapterListener {
 
+    private static String LOG_TAG = "Recipe Steps Fragment";
     private RecipeItem mRecipeItem;
     private List<Step> mSteps;
     private String mRecipeName;
@@ -37,8 +38,7 @@ public class RecipeStepsFragment extends Fragment implements
     private TextView mRecipeNameTv;
     private TextView mIngredientsTv;
     private RecyclerView.LayoutManager mLayoutManager;
-    private recipeStepsAdapter mAdapter;
-    private static String LOG_TAG = "Recipe Steps Fragment";
+    private RecipeStepsAdapter mAdapter;
     private onStepClickedListener mCallback;
 
     //empty constructor for creating the Fragment
@@ -85,18 +85,13 @@ public class RecipeStepsFragment extends Fragment implements
 
         //set recipe steps to adapter
         mSteps = mRecipeItem.getSteps();
-        mAdapter = new recipeStepsAdapter(getContext(), mRecipeItem, this);
+        mAdapter = new RecipeStepsAdapter(getContext(), mRecipeItem, this);
         mAdapter.setStepsForNextView(mSteps);
         //set adapter to recycler view
         mRecyclerView.setAdapter(mAdapter);
 
         //return the inflated, populated view
         return rootView;
-    }
-
-    //define a listener interface, which has the same parameters as the recycler view's interface
-    public interface onStepClickedListener{
-        void onStepClicked(RecipeItem recipeItem, int position);
     }
 
     //override the recycler view's interface
@@ -117,5 +112,10 @@ public class RecipeStepsFragment extends Fragment implements
             throw new ClassCastException(context.toString()
                     + " must implement OnImageClickListener");
         }
+    }
+
+    //define a listener interface, which has the same parameters as the recycler view's interface
+    public interface onStepClickedListener {
+        void onStepClicked(RecipeItem recipeItem, int position);
     }
 }

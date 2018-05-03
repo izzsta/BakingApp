@@ -11,7 +11,6 @@ import com.example.android.bakingapp.R;
 import com.example.android.bakingapp.model.RecipeItem;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -20,46 +19,21 @@ import butterknife.ButterKnife;
  * Created by izzystannett on 10/04/2018.
  */
 
-public class recipeItemAdapter extends RecyclerView.Adapter<recipeItemAdapter.ViewHolder> {
+public class RecipeItemAdapter extends RecyclerView.Adapter<RecipeItemAdapter.ViewHolder> {
 
     private ArrayList<RecipeItem> mListOfRecipes;
     private Context mContext;
     private RecipeItemAdapterListener mClickHandler;
 
     //construct a constructor that takes a list of recipeItems
-    public recipeItemAdapter (Context c, ArrayList<RecipeItem> listOfRecipes, RecipeItemAdapterListener clickHandler){
+    public RecipeItemAdapter(Context c, ArrayList<RecipeItem> listOfRecipes, RecipeItemAdapterListener clickHandler) {
         mListOfRecipes = listOfRecipes;
         mContext = c;
         mClickHandler = clickHandler;
     }
 
-    //create onClickListener interface
-    public interface RecipeItemAdapterListener{
-        void onClickMethod(RecipeItem recipeItem, int position);
-    }
-
-    //create viewholder class
-    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        @BindView(R.id.recipe_item_tv)
-        TextView mRecipeItemTv;
-
-        private ViewHolder(View itemView){
-        super(itemView);
-            ButterKnife.bind(this, itemView);
-            itemView.setOnClickListener(this);
-        }
-
-        @Override
-        public void onClick(View view) {
-            RecipeItem recipeItem;
-            int adapterPosition = getAdapterPosition();
-            recipeItem = mListOfRecipes.get(adapterPosition);
-            mClickHandler.onClickMethod(recipeItem, adapterPosition);
-        }
-    }
-
     @Override
-    public recipeItemAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecipeItemAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // inflate the item Layout
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recipe_list_view, parent,
                 false);
@@ -69,7 +43,7 @@ public class recipeItemAdapter extends RecyclerView.Adapter<recipeItemAdapter.Vi
     }
 
     @Override
-    public void onBindViewHolder(recipeItemAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecipeItemAdapter.ViewHolder holder, int position) {
         RecipeItem recipe = mListOfRecipes.get(position);
         String recipeName = recipe.getName();
         holder.mRecipeItemTv.setText(recipeName);
@@ -83,5 +57,30 @@ public class recipeItemAdapter extends RecyclerView.Adapter<recipeItemAdapter.Vi
     public void setRecipesToAdapter(ArrayList<RecipeItem> foundRecipeList){
         mListOfRecipes = foundRecipeList;
         notifyDataSetChanged();
+    }
+
+    //create onClickListener interface
+    public interface RecipeItemAdapterListener {
+        void onClickMethod(RecipeItem recipeItem, int position);
+    }
+
+    //create viewholder class
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        @BindView(R.id.recipe_item_tv)
+        TextView mRecipeItemTv;
+
+        private ViewHolder(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            RecipeItem recipeItem;
+            int adapterPosition = getAdapterPosition();
+            recipeItem = mListOfRecipes.get(adapterPosition);
+            mClickHandler.onClickMethod(recipeItem, adapterPosition);
+        }
     }
 }

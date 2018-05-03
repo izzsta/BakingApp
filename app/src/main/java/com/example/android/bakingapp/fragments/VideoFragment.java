@@ -35,6 +35,8 @@ import java.util.List;
 
 public class VideoFragment extends Fragment {
 
+    private static final String PLAYER_POSITION = "playback_position";
+    private static final String PLAYBACK_READY = "playback_ready";
     private long playbackPosition;
     private boolean playbackReady = true;
     private int currentWindow;
@@ -42,19 +44,13 @@ public class VideoFragment extends Fragment {
     private RecipeItem mRecipeItem;
     private Step mStepSelected;
     private List<Step> mListOfSteps;
-    private boolean mGetsHere;
     @Nullable private String mVideoString;
+    @Nullable
+    private String mImageString;
     @Nullable private String mThumbnailString;
-
     private SimpleExoPlayer mSimpleExoPlayer;
     private SimpleExoPlayerView simpleExoPlayerView;
     private ImageView placeholderImageView;
-
-    private static final String PLAYER_POSITION = "playback_position";
-    private static final String PLAYBACK_READY = "playback_ready";
-    private String exampleVideo1 = "https://d17h27t6h515a5.cloudfront.net/topher/2017/April/58ffd974_-intro-creampie/-intro-creampie.mp4";
-    private String exampleVideo2 = "https://d17h27t6h515a5.cloudfront.net/topher/2017/April/58ffd9a6_2-mix-sugar-crackers-creampie/2-mix-sugar-crackers-creampie.mp4";
-
 
     public VideoFragment(){}
 
@@ -81,22 +77,34 @@ public class VideoFragment extends Fragment {
         if(mRecipeItem != null) {
             mListOfSteps = mRecipeItem.getSteps();
             mStepSelected = mListOfSteps.get(mStepIndex);
+            mImageString = mRecipeItem.getImage();
             mThumbnailString = mStepSelected.getThumbnailURL();
             mVideoString = mStepSelected.getVideoURL();
         }
 
-        videoOrImageDisplay(mThumbnailString, mVideoString);
+        videoOrImageDisplay(mImageString, mThumbnailString, mVideoString);
 
         return rootView;
     }
 
-    public void videoOrImageDisplay(String thumbnail,  String videoUrl){
+    public void videoOrImageDisplay(String image, String thumbnail, String videoUrl) {
         if (videoUrl.trim().length() != 0){
 
             simpleExoPlayerView.setVisibility(View.VISIBLE);
             placeholderImageView.setVisibility(View.GONE);
 
             initializeExoPlayer(Uri.parse(videoUrl));
+
+        } else if (image.trim().length() != 0) {
+
+            simpleExoPlayerView.setVisibility(View.GONE);
+            placeholderImageView.setVisibility(View.VISIBLE);
+
+            Picasso.with(getContext())
+                    .load(image)
+                    .placeholder(R.drawable.cupcake)
+                    .error(R.drawable.cupcake)
+                    .into(placeholderImageView);
 
         } else if (thumbnail.trim().length() != 0){
 
@@ -108,6 +116,7 @@ public class VideoFragment extends Fragment {
                     .placeholder(R.drawable.cupcake)
                     .error(R.drawable.cupcake)
                     .into(placeholderImageView);
+
         } else {
 
             simpleExoPlayerView.setVisibility(View.GONE);
@@ -147,6 +156,18 @@ public class VideoFragment extends Fragment {
         }
         outState.putLong(PLAYER_POSITION, playbackPosition);
         outState.putBoolean(PLAYBACK_READY, playbackReady);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        releasePlayer();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        releasePlayer();
     }
 
     @Override

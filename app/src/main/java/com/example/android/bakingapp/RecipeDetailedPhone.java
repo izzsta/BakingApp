@@ -3,7 +3,9 @@ package com.example.android.bakingapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -22,7 +24,6 @@ public class RecipeDetailedPhone extends AppCompatActivity {
     private List<Step> mListOfSteps;
     private Step mSelectedStep;
     private int mStepIndex;
-    private Bundle bundleToStepsFragment;
     private FragmentManager fragmentManager;
     private boolean isLandscape;
 
@@ -82,7 +83,6 @@ public class RecipeDetailedPhone extends AppCompatActivity {
             mPreviousButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //TODO: make it highlight a different item in the steps list
                     if (mStepIndex > 0) {
                         mStepIndex--;
                         //refresh the video fragment
@@ -107,7 +107,6 @@ public class RecipeDetailedPhone extends AppCompatActivity {
             mNextButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //TODO: make it highlight a different item in the steps list
                     if (mStepIndex < mListOfSteps.size()-1) {
                         mStepIndex++;
                         //refresh the video fragment

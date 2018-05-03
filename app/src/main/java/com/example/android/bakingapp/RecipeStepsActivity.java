@@ -20,8 +20,6 @@ public class RecipeStepsActivity extends AppCompatActivity implements RecipeStep
     private FragmentManager fragmentManager;
     private int mStepIndex = 0;
 
-    //TODO: define some interface that allows different steps to be highlighted when scrolling through videos
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,17 +31,15 @@ public class RecipeStepsActivity extends AppCompatActivity implements RecipeStep
         mRecipeBundle = createBundle(mParcelledRecipeItem, mStepIndex);
         //upon opening activity, open RecipeStepsFragment with selected Recipe Item
         RecipeStepsFragment stepsFragment = new RecipeStepsFragment();
-        //set argument to pass to fragment
-        stepsFragment.setArguments(mRecipeBundle);
-        //add fragment to layout
-        fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .add(R.id.steps_list_container, stepsFragment)
-                .commit();
-
-        //set default step to open activity on
-        //mAllSteps = mParcelledRecipeItem.getSteps();
-        //mSelectedStep = mAllSteps.get(0);
+        if (savedInstanceState == null) {
+            //set argument to pass to fragment
+            stepsFragment.setArguments(mRecipeBundle);
+            //add fragment to layout
+            fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .add(R.id.steps_list_container, stepsFragment)
+                    .commit();
+        }
 
         //if this is a two pane layout, add a video Fragment and instructions fragment too
         if (findViewById(R.id.tablet_detail_layout) != null) {

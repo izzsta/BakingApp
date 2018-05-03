@@ -12,6 +12,18 @@ import java.util.List;
 
 public class RecipeItem implements Parcelable {
 
+    //parcellable methods
+    public static final Creator CREATOR = new Creator() {
+        @Override
+        public RecipeItem createFromParcel(Parcel parcel) {
+            return new RecipeItem(parcel);
+        }
+
+        @Override
+        public RecipeItem[] newArray(int i) {
+            return new RecipeItem[i];
+        }
+    };
     @SerializedName("id")
     @Expose
     private Integer id;
@@ -30,6 +42,16 @@ public class RecipeItem implements Parcelable {
     @SerializedName("image")
     @Expose
     private String image;
+
+    //override Parcelable methods
+    private RecipeItem(Parcel in) {
+        name = in.readString();
+        ingredients = new ArrayList<>();
+        in.readList(ingredients, Ingredient.class.getClassLoader());
+        steps = new ArrayList<>();
+        in.readList(steps, Step.class.getClassLoader());
+        image = in.readString();
+    }
 
     public Integer getId() {
         return id;
@@ -79,28 +101,6 @@ public class RecipeItem implements Parcelable {
         this.image = image;
     }
 
-    //parcellable methods
-    public static final Creator CREATOR = new Creator() {
-        @Override
-        public RecipeItem createFromParcel(Parcel parcel) {
-            return new RecipeItem(parcel);
-        }
-
-        @Override
-        public RecipeItem[] newArray(int i) {
-            return new RecipeItem[i];
-        }
-    };
-
-    //override Parcelable methods
-    private RecipeItem(Parcel in) {
-        name = in.readString();
-        ingredients = new ArrayList<>();
-        in.readList(ingredients, Ingredient.class.getClassLoader());
-        steps = new ArrayList<>();
-        in.readList(steps, Step.class.getClassLoader());
-    }
-
     @Override
     public int describeContents() {
         return 0;
@@ -111,6 +111,7 @@ public class RecipeItem implements Parcelable {
         parcel.writeString(name);
         parcel.writeList(ingredients);
         parcel.writeList(steps);
+        parcel.writeString(image);
     }
 
 }

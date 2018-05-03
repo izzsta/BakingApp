@@ -14,7 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import com.example.android.bakingapp.adapters.recipeItemAdapter;
+import com.example.android.bakingapp.adapters.RecipeItemAdapter;
 import com.example.android.bakingapp.data.App;
 import com.example.android.bakingapp.data.InternetConnectionListener;
 import com.example.android.bakingapp.model.RecipeItem;
@@ -31,14 +31,13 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-
-public class MainActivity extends AppCompatActivity implements recipeItemAdapter.RecipeItemAdapterListener, InternetConnectionListener {
+public class MainActivity extends AppCompatActivity implements RecipeItemAdapter.RecipeItemAdapterListener, InternetConnectionListener {
 
     @BindView(R.id.phone_recycler_view) RecyclerView mRecyclerView;
     @BindView(R.id.no_internet_connection)
     TextView mNoInternetTv;
     private RecyclerView.LayoutManager mLayoutManager;
-    private recipeItemAdapter mAdapter;
+    private RecipeItemAdapter mAdapter;
     private ArrayList<RecipeItem> mRecipeData;
     private boolean mIsTwoPane = false;
 
@@ -77,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements recipeItemAdapter
         mRecyclerView.setHasFixedSize(true);
 
         //set the found recipe data to the adapter
-        mAdapter = new recipeItemAdapter(this, new ArrayList<RecipeItem>(0), this);
+        mAdapter = new RecipeItemAdapter(this, new ArrayList<RecipeItem>(0), this);
         mRecyclerView.setAdapter(mAdapter);
 
         //load data for adapter

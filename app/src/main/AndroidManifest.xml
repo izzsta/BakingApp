@@ -6,13 +6,13 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
+        android:name="com.example.android.bakingapp.data.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:name="com.example.android.bakingapp.data.App">
+        android:theme="@style/AppTheme">
 
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -21,8 +21,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RecipeStepsActivity" />
-        <activity android:name=".RecipeDetailedPhone" />
+
+        <activity
+            android:name=".RecipeStepsActivity"
+            android:parentActivityName="com.example.android.bakingapp.MainActivity">
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.android.bakingapp.MainActivity" />
+        </activity>
+
+        <activity android:name=".RecipeDetailedPhone"></activity>
 
         <receiver android:name=".widget.BakingAppWidgetProvider">
             <intent-filter>
