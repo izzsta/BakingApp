@@ -50,9 +50,9 @@ public class RecipeStepsFragment extends Fragment implements
         //inflate the recipe steps fragment xml
         View rootView = inflater.inflate(R.layout.fragment_recipe_steps, container, false);
 
-        //get the Bundled, selected recipe item from the MainActivity
+        //get the Bundled recipe item from the MainActivity
         Bundle bundle = this.getArguments();
-        if(bundle != null){
+        if (bundle != null) {
             mRecipeItem = bundle.getParcelable(Constants.PARCELLED_RECIPE_ITEM);
         }
 

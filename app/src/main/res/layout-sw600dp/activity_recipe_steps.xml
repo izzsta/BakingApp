@@ -1,47 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:baselineAligned="false"
-    android:orientation="horizontal"
     android:background="@color/colorCream"
+    android:baselineAligned="false"
     tools:context="com.example.android.bakingapp.RecipeStepsActivity">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
     <!-- the steps and detail layout for tablets -->
-
-    <FrameLayout
-        android:layout_width="400dp"
-        android:layout_height="match_parent"
-        android:id="@+id/steps_list_container"></FrameLayout>
-
-    <!-- A divider -->
-    <View
-        android:layout_width="1dp"
-        android:layout_height="match_parent"
-        android:background="@android:color/darker_gray" />
-
-    <!-- Linear Layout for further recipe details -->
     <LinearLayout
-        android:layout_width="400dp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/tablet_detail_layout"
-        android:orientation="vertical">
+        android:layout_below="@+id/my_toolbar"
+        android:orientation="horizontal">
 
         <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="3"
-            android:id="@+id/video_container"></FrameLayout>
+            android:id="@+id/steps_list_container"
+            android:layout_width="400dp"
+            android:layout_height="match_parent"></FrameLayout>
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="2"
-            android:id="@+id/detailed_instructions_container"></FrameLayout>
+        <!-- A divider -->
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@android:color/darker_gray" />
+
+        <!-- Linear Layout for further recipe details -->
+        <LinearLayout
+            android:id="@+id/tablet_detail_layout"
+            android:layout_width="400dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:id="@+id/video_container"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="3"></FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/detailed_instructions_container"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2"></FrameLayout>
+
+        </LinearLayout>
 
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>

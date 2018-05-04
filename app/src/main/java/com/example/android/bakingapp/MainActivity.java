@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -59,6 +60,10 @@ public class MainActivity extends AppCompatActivity implements RecipeItemAdapter
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         getIdlingResource();
+
+        //set up Toolbar
+        Toolbar toolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(toolbar);
 
         //set the appropriate layout manager depending on screen size
         if(findViewById(R.id.tablet_main_screen) != null){

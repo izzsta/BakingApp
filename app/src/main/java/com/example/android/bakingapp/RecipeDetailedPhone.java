@@ -32,6 +32,15 @@ public class RecipeDetailedPhone extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_detailed_phone);
 
+        //set up Toolbar
+        Toolbar toolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(toolbar);
+
+        ActionBar ab = getSupportActionBar();
+        if (ab != null) {
+            ab.setDisplayHomeAsUpEnabled(true);
+        }
+
         //get information from intent
         Intent receivedIntent = getIntent();
         Bundle receivedBundle = receivedIntent.getBundleExtra(Constants.RECIPE_BUNDLE_TO_DETAIL);

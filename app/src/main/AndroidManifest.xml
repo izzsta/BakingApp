@@ -31,7 +31,14 @@
                 android:value="com.example.android.bakingapp.MainActivity" />
         </activity>
 
-        <activity android:name=".RecipeDetailedPhone"></activity>
+        <activity
+            android:name=".RecipeDetailedPhone"
+            android:parentActivityName="com.example.android.bakingapp.RecipeStepsActivity">
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.android.bakingapp.RecipeStepsActivity" />
+        </activity>
 
         <receiver android:name=".widget.BakingAppWidgetProvider">
             <intent-filter>
