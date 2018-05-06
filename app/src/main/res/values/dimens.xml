@@ -11,7 +11,7 @@ http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
     <dimen name="margin_12dp">12dp</dimen>
 
     <!-- text sizes -->
-    <dimen name="button_text">14sp</dimen>
+    <dimen name="button_text">16sp</dimen>
     <dimen name="small_text">14sp</dimen>
     <dimen name="medium_text">16sp</dimen>
     <dimen name="big_text">36sp</dimen>

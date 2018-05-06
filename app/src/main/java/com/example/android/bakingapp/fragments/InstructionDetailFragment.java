@@ -23,8 +23,8 @@ public class InstructionDetailFragment extends Fragment {
 
     private static Step mStepSelected;
     private static RecipeItem mRecipeItem;
+    private static int mStepIndex;
     private List<Step> mListOfSteps;
-    private static int mStepIndex = 0;
 
     public InstructionDetailFragment(){}
 

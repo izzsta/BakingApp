@@ -10,10 +10,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.android.bakingapp.model.RecipeItem;
-import com.example.android.bakingapp.model.Step;
 import com.example.android.bakingapp.fragments.InstructionDetailFragment;
 import com.example.android.bakingapp.fragments.VideoFragment;
+import com.example.android.bakingapp.model.RecipeItem;
+import com.example.android.bakingapp.model.Step;
 import com.example.android.bakingapp.utils.Constants;
 
 import java.util.List;
@@ -22,7 +22,6 @@ public class RecipeDetailedPhone extends AppCompatActivity {
 
     private RecipeItem mRecipeItem;
     private List<Step> mListOfSteps;
-    private Step mSelectedStep;
     private int mStepIndex;
     private FragmentManager fragmentManager;
     private boolean isLandscape;
@@ -32,33 +31,27 @@ public class RecipeDetailedPhone extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_detailed_phone);
 
-        //set up Toolbar
+        //set up Toolbar with Up navigation
         Toolbar toolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(toolbar);
-
         ActionBar ab = getSupportActionBar();
         if (ab != null) {
             ab.setDisplayHomeAsUpEnabled(true);
         }
 
-        //get information from intent
-        Intent receivedIntent = getIntent();
-        Bundle receivedBundle = receivedIntent.getBundleExtra(Constants.RECIPE_BUNDLE_TO_DETAIL);
-
-        if (receivedBundle != null) {
-            mRecipeItem = receivedBundle.getParcelable(Constants.PARCELLED_RECIPE_ITEM);
-            mStepIndex = receivedBundle.getInt(Constants.STEP_INDEX, 0);
-        }
-        mListOfSteps = mRecipeItem.getSteps();
-        mSelectedStep = mListOfSteps.get(mStepIndex);
-
-        fragmentManager = getSupportFragmentManager();
-
         //if activity is newly created, add new fragments
         if (savedInstanceState == null) {
+            //get information from intent
+            Intent receivedIntent = getIntent();
+            Bundle receivedBundle = receivedIntent.getBundleExtra(Constants.RECIPE_BUNDLE_TO_DETAIL);
+            if (receivedBundle != null) {
+                mRecipeItem = receivedBundle.getParcelable(Constants.PARCELLED_RECIPE_ITEM);
+                mStepIndex = receivedBundle.getInt(Constants.STEP_INDEX, 0);
+            }
+
+            fragmentManager = getSupportFragmentManager();
 
             if (findViewById(R.id.landscape_phone) != null) {
-
                 isLandscape = true;
 
                 VideoFragment videoFragment = new VideoFragment();
@@ -66,9 +59,7 @@ public class RecipeDetailedPhone extends AppCompatActivity {
                 fragmentManager.beginTransaction()
                         .add(R.id.video_container, videoFragment)
                         .commit();
-
             } else {
-
                 isLandscape = false;
 
                 VideoFragment videoFragment = new VideoFragment();
@@ -84,7 +75,13 @@ public class RecipeDetailedPhone extends AppCompatActivity {
                         .add(R.id.detailed_instructions_container, instructionDetailFragment)
                         .commit();
             }
+        } else {
+            mRecipeItem = savedInstanceState.getParcelable(Constants.SAVED_RECIPE_DETAILS);
+            mStepIndex = savedInstanceState.getInt(Constants.SAVED_RECIPE_INDEX);
         }
+
+        //get list of steps for buttons
+        mListOfSteps = mRecipeItem.getSteps();
 
         //set up button functionality
         if (!isLandscape) {
@@ -94,12 +91,14 @@ public class RecipeDetailedPhone extends AppCompatActivity {
                 public void onClick(View view) {
                     if (mStepIndex > 0) {
                         mStepIndex--;
+
                         //refresh the video fragment
                         VideoFragment videoFragment = new VideoFragment();
                         videoFragment.setArguments(createBundle(mRecipeItem, mStepIndex));
                         fragmentManager.beginTransaction()
                                 .replace(R.id.video_container, videoFragment)
                                 .commit();
+
                         //refresh the instructions fragment
                         InstructionDetailFragment newInstructionFragment = new InstructionDetailFragment();
                         newInstructionFragment.setArguments(createBundle(mRecipeItem, mStepIndex));
@@ -116,14 +115,16 @@ public class RecipeDetailedPhone extends AppCompatActivity {
             mNextButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (mStepIndex < mListOfSteps.size()-1) {
+                    if (mStepIndex < mListOfSteps.size() - 1) {
                         mStepIndex++;
+
                         //refresh the video fragment
                         VideoFragment videoFragment = new VideoFragment();
                         videoFragment.setArguments(createBundle(mRecipeItem, mStepIndex));
                         fragmentManager.beginTransaction()
                                 .replace(R.id.video_container, videoFragment)
                                 .commit();
+
                         //refresh the instructions fragment
                         InstructionDetailFragment newInstructionFragment = new InstructionDetailFragment();
                         newInstructionFragment.setArguments(createBundle(mRecipeItem, mStepIndex));
@@ -143,6 +144,13 @@ public class RecipeDetailedPhone extends AppCompatActivity {
         thisBundle.putParcelable(Constants.PARCELLED_RECIPE_ITEM, recipeItem);
         thisBundle.putInt(Constants.STEP_INDEX, stepIndex);
         return thisBundle;
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putParcelable(Constants.SAVED_RECIPE_DETAILS, mRecipeItem);
+        outState.putInt(Constants.SAVED_RECIPE_INDEX, mStepIndex);
+        super.onSaveInstanceState(outState);
     }
 }
 

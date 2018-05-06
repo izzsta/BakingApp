@@ -9,6 +9,8 @@ public class Constants {
     public static final String RECIPE_BUNDLE_TO_DETAIL = "recipe_bundle_to_detail";
     public static final String RECIPE_TO_WIDGET = "recipe_to_widget";
     public static final String SAVED_RECIPE_ITEM = "saved_recipe_item";
+    public static final String SAVED_RECIPE_DETAILS = "saved_recipe_details";
+    public static final String SAVED_RECIPE_INDEX = "saved_recipe_index";
     public static final String STEP_INDEX = "selected_step_index";
 
 }

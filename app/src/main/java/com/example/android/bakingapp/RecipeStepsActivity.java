@@ -36,17 +36,16 @@ public class RecipeStepsActivity extends AppCompatActivity implements RecipeStep
             ab.setDisplayHomeAsUpEnabled(true);
         }
 
-        if (savedInstanceState != null) {
-            mRecipeBundle = savedInstanceState.getBundle(Constants.SAVED_RECIPE_ITEM);
-        } else {
+        if (savedInstanceState == null) {
+            //  mRecipeBundle = savedInstanceState.getBundle(Constants.SAVED_RECIPE_ITEM);
+            //} else {
             //get the recipe item received from previous activity and set to bundle
             Intent receivedIntent = getIntent();
             mParcelledRecipeItem = receivedIntent.getParcelableExtra(Constants.PARCELLED_RECIPE_ITEM);
             mRecipeBundle = createBundle(mParcelledRecipeItem, mStepIndex);
-        }
 
-        //upon opening activity, open RecipeStepsFragment with selected Recipe Item
-        RecipeStepsFragment stepsFragment = new RecipeStepsFragment();
+            //upon opening activity, open RecipeStepsFragment with selected Recipe Item
+            RecipeStepsFragment stepsFragment = new RecipeStepsFragment();
             //set argument to pass to fragment
             stepsFragment.setArguments(mRecipeBundle);
             //add fragment to layout
@@ -55,26 +54,28 @@ public class RecipeStepsActivity extends AppCompatActivity implements RecipeStep
                     .add(R.id.steps_list_container, stepsFragment)
                     .commit();
 
-        //if this is a two pane layout, add a video Fragment and instructions fragment too
-        if (findViewById(R.id.tablet_detail_layout) != null) {
-            mIsTwoPane = true;
 
-            if (savedInstanceState == null) {
-                //if the video hasn't already started, create and add a new video fragment
-                VideoFragment videoFragment = new VideoFragment();
-                videoFragment.setArguments(mRecipeBundle);
+            //if this is a two pane layout, add a video Fragment and instructions fragment too
+            if (findViewById(R.id.tablet_detail_layout) != null) {
+                mIsTwoPane = true;
+
+                if (savedInstanceState == null) {
+                    //if the video hasn't already started, create and add a new video fragment
+                    VideoFragment videoFragment = new VideoFragment();
+                    videoFragment.setArguments(mRecipeBundle);
+                    fragmentManager.beginTransaction()
+                            .add(R.id.video_container, videoFragment)
+                            .commit();
+                }
+
+                InstructionDetailFragment instructionDetailFragment = new InstructionDetailFragment();
+                //send recipe item to fragments
+                instructionDetailFragment.setArguments(mRecipeBundle);
+                fragmentManager = getSupportFragmentManager();
                 fragmentManager.beginTransaction()
-                        .add(R.id.video_container, videoFragment)
+                        .add(R.id.detailed_instructions_container, instructionDetailFragment)
                         .commit();
             }
-
-            InstructionDetailFragment instructionDetailFragment = new InstructionDetailFragment();
-            //send recipe item to fragments
-            instructionDetailFragment.setArguments(mRecipeBundle);
-            fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction()
-                    .add(R.id.detailed_instructions_container, instructionDetailFragment)
-                    .commit();
         }
     }
 
@@ -112,7 +113,7 @@ public class RecipeStepsActivity extends AppCompatActivity implements RecipeStep
         return newBundle;
     }
 
-    @Override
+    /*@Override
     protected void onSaveInstanceState(Bundle outState) {
         outState.putBundle(Constants.SAVED_RECIPE_ITEM, mRecipeBundle);
         super.onSaveInstanceState(outState);
@@ -123,4 +124,5 @@ public class RecipeStepsActivity extends AppCompatActivity implements RecipeStep
         super.onRestoreInstanceState(savedInstanceState);
         mRecipeBundle.getBundle(Constants.SAVED_RECIPE_ITEM);
     }
+    */
 }

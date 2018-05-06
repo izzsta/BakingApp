@@ -24,6 +24,7 @@
 
         <activity
             android:name=".RecipeStepsActivity"
+            android:launchMode="singleTop"
             android:parentActivityName="com.example.android.bakingapp.MainActivity">
 
             <meta-data
@@ -33,6 +34,7 @@
 
         <activity
             android:name=".RecipeDetailedPhone"
+            android:launchMode="singleTop"
             android:parentActivityName="com.example.android.bakingapp.RecipeStepsActivity">
 
             <meta-data

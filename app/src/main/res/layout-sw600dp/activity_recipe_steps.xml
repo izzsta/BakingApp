@@ -39,7 +39,7 @@
         <!-- Linear Layout for further recipe details -->
         <LinearLayout
             android:id="@+id/tablet_detail_layout"
-            android:layout_width="400dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
