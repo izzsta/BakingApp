@@ -113,16 +113,4 @@ public class RecipeStepsActivity extends AppCompatActivity implements RecipeStep
         return newBundle;
     }
 
-    /*@Override
-    protected void onSaveInstanceState(Bundle outState) {
-        outState.putBundle(Constants.SAVED_RECIPE_ITEM, mRecipeBundle);
-        super.onSaveInstanceState(outState);
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        mRecipeBundle.getBundle(Constants.SAVED_RECIPE_ITEM);
-    }
-    */
 }
