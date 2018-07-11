@@ -14,9 +14,12 @@
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
+
+
     <!-- recycler view for all recipes -->
 
-<android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.RecyclerView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/phone_recycler_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
