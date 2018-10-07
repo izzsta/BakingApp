@@ -14,7 +14,8 @@ import com.example.android.bakingapp.fragments.RecipeStepsFragment;
 import com.example.android.bakingapp.fragments.VideoFragment;
 import com.example.android.bakingapp.utils.Constants;
 
-public class RecipeStepsActivity extends AppCompatActivity implements RecipeStepsFragment.onStepClickedListener {
+public class
+RecipeStepsActivity extends AppCompatActivity implements RecipeStepsFragment.onStepClickedListener {
 
     private RecipeItem mParcelledRecipeItem;
     private boolean mIsTwoPane;

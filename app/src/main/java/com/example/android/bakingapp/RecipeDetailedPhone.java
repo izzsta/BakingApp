@@ -39,6 +39,8 @@ public class RecipeDetailedPhone extends AppCompatActivity {
             ab.setDisplayHomeAsUpEnabled(true);
         }
 
+        fragmentManager = getSupportFragmentManager();
+
         //if activity is newly created, add new fragments
         if (savedInstanceState == null) {
             //get information from intent
@@ -48,8 +50,6 @@ public class RecipeDetailedPhone extends AppCompatActivity {
                 mRecipeItem = receivedBundle.getParcelable(Constants.PARCELLED_RECIPE_ITEM);
                 mStepIndex = receivedBundle.getInt(Constants.STEP_INDEX, 0);
             }
-
-            fragmentManager = getSupportFragmentManager();
 
             if (findViewById(R.id.landscape_phone) != null) {
                 isLandscape = true;

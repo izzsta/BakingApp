@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!--
     <color name="colorPrimary">#C7D7C0</color>
     <color name="colorPrimaryDark">#a1b19a</color>
     <color name="colorAccent">#C96E86</color>
@@ -8,6 +10,18 @@
     <color name="colorCream">#F5F3E7</color>
     <color name="colorGreen">#C7D7C0</color>
     <color name="colorHoneysuckle">#C96E86</color>
-    <color name="colorBrown">#C96E86</color>
+    <color name="colorBrown">#C96E86</color> -->
+
+
+    <color name="colorPrimary">#795548</color>
+    <color name="colorPrimaryDark">#5D4037</color>
+    <color name="colorPrimaryLight">#D7CCC8</color>
+    <color name="colorAccent">#009688</color>
+    <color name="colorDarkAccent">#00665c</color>
+    <color name="primary_text">#212121</color>
+    <color name="secondary_text">#757575</color>
+    <color name="icons">#FFFFFF</color>
+    <color name="white">#FFFFFF</color>
+    <color name="divider">#BDBDBD</color>
 
 </resources>
